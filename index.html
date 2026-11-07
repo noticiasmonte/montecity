@@ -14,8 +14,8 @@
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #000000; /* Fundo Preto */
-            color: #ffffff; /* Letras Brancas */
+            background-color: #000000; 
+            color: #ffffff; 
             margin: 0; 
             padding: 0; 
             text-align: center; 
@@ -26,22 +26,24 @@
             overflow-x: hidden; 
         }
         
-        /* --- BANNER SUBSTITUINDO O TOPO --- */
+        /* --- BANNER CORRIGIDO --- */
         .banner-container {
             width: 100%;
             position: relative;
             z-index: 100;
-            background-color: #000; /* Garante fundo preto caso a imagem tenha transparência */
+            background-color: #000; 
+            border-bottom: 1px solid #333; /* Linha sutil para separar do conteúdo */
         }
 
         .banner-img {
             width: 100%;
-            height: auto;
+            height: auto; /* Altura automática para não distorcer */
             display: block;
-            object-fit: contain; /* Mantém a proporção sem cortar nada */
-            max-height: 250px; /* Limita a altura para não ocupar a tela toda */
+            object-fit: contain; 
+            max-width: 600px; /* Limite para telas grandes, mas respeita mobile */
+            margin: 0 auto;   /* Centraliza em telas grandes */
         }
-        /* ---------------------------------- */
+        /* ------------------------ */
         
         .container { 
             padding: 20px; 
@@ -210,9 +212,10 @@
 </head>
 <body>
 
-    <!-- BANNER NO TOPO (Substitui o título anterior) -->
+    <!-- BANNER NO TOPO -->
     <div class="banner-container">
-        <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Banner Monte City" class="banner-img">
+        <!-- Tentei usar a URL anterior. Se não carregar, verifique se o link está público -->
+        <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Banner Monte City" class="banner-img" onerror="this.style.display='none'; console.log('Erro no banner');">
     </div>
 
     <div class="container">
@@ -275,25 +278,21 @@
             const unlockedDiv = document.getElementById('unlocked-content');
             const loader = document.getElementById('loading-indicator');
             
-            // Efeito visual no botão
             const btn = document.querySelector('.unlock-btn');
             btn.textContent = "CARREGANDO...";
             btn.disabled = true;
             
-            // Simula um carregamento rápido para parecer legítimo
             setTimeout(() => {
                 lockedDiv.classList.add('hidden');
                 unlockedDiv.style.display = 'block';
                 
-                // Esconde o loader após um breve momento
                 setTimeout(() => {
                     loader.style.display = 'none';
                 }, 1000);
                 
-            }, 800); // 800ms de delay para parecer processamento
+            }, 800); 
         }
 
-        // Previne clique direito básico
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
 
