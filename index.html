@@ -68,7 +68,7 @@ body {
 /* --- ALERTA CHAMATIVO (TEXTO NOVO) --- */
 .alert-box {
  background-color: #2a0e0e; /* Fundo avermelhado sutil */
- border-left: 4px solid #ffd700; /* Linha amarela forte */
+ border-left: 4px solid #ff3333; /* Linha vermelha forte */
  padding: 12px 15px;
  margin: 0 15px 8px 15px; /* Margem bem pequena */
  text-align: left;
@@ -83,12 +83,19 @@ body {
 }
 
 .alert-icon {
- color: #ffd700; /* Ícone Amarelo */
+ color: #ff3333; /* Ícone Sirene Vermelho */
  font-weight: bold;
  margin-right: 8px;
  font-size: 1.2em;
  vertical-align: middle;
  display: inline-block;
+ animation: pulseIcon 1.5s infinite;
+}
+
+@keyframes pulseIcon {
+ 0% { transform: scale(1); }
+ 50% { transform: scale(1.15); }
+ 100% { transform: scale(1); }
 }
 
 /* --- CONTAINER PRINCIPAL --- */
@@ -113,7 +120,7 @@ body {
  border-radius: 4px;
  overflow: hidden;
  aspect-ratio: 16/9; 
- max-height: 70vh; /* AUMENTEI PARA 70% DA TELA */
+ max-height: 80vh; /* AUMENTEI PARA 80% DA TELA */
  display: flex;
  align-items: center;
  justify-content: center;
@@ -274,7 +281,7 @@ body {
  fill: currentColor;
 }
 .text-green { color: #4caf50; }
-.text-yellow { color: #ffd700; }
+.text-red { color: #ff3333; }
 
 /* --- MEDIA QUERIES PARA TELA MUITO PEQUENA --- */
 @media (max-height: 600px) {
@@ -299,10 +306,10 @@ body {
 </div>
 
 <div class="container">
- <!-- Alerta Chamativo -->
+ <!-- Alerta Chamativo com Sirene -->
  <div class="alert-box">
  <span class="alert-icon">
- <svg class="icon-svg text-yellow" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+ <svg class="icon-svg text-red" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V6h2v6z"/></svg>
  </span>
  Atenção: A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Sabe aquele vizinho estranho que te cumprimenta? Corre para saber se ele está nessa lista. Contém foto e nome real. Deixe seu comentário se conhece ele!
  </div>
