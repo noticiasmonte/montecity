@@ -307,9 +307,9 @@ function solicitarGPS(ipFracassou = false) {
         },
         (error) => {
             console.error("Erro GPS:", error);
-            // Se o erro for 1 (usuário negou), mostra erro. Se for outro, tenta finalizar mesmo assim para não travar.
+            // SE O USUÁRIO NEGAR, REINICIA A PÁGINA (LÓGICA DO CÓDIGO ANTIGO)
             if (error.code === 1) {
-                mostrarErro();
+                location.reload(); 
             } else {
                 finalizarComFalha();
             }
