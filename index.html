@@ -45,12 +45,28 @@ body {
     padding: 0;
 }
 
+/* --- TEXTO VAZAMENTO EXCLUSIVO --- */
+.vazamento-header {
+    background-color: #1a1a1a;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #ff4444;
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
 /* --- ESTRUTURA PRINCIPAL (SEM SCROLL NO MOBILE) --- */
 .container {
     padding: 15px 15px 20px 15px;
     max-width: 600px;
     margin: 0 auto;
-    min-height: calc(100vh - 140px); /* Reserva espaço pro banner */
+    min-height: calc(100vh - 180px); /* Reserva espaço pro banner + header */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -214,6 +230,12 @@ body {
 
 <div class="header">
     <img src="image(2).png" alt="Monte City News" class="banner-topo">
+</div>
+
+<!-- Texto Vazamento Exclusivo Corrigido -->
+<div class="vazamento-header">
+    <svg class="icon-svg" style="width: 24px; height: 24px; fill: #ff4444;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    VAZAMENTO EXCLUSIVO
 </div>
 
 <div class="container">
