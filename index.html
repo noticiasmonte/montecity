@@ -53,7 +53,7 @@ body {
 /* --- FAIXA VAZAMENTO EXCLUSIVO (SOMENTE TEXTO) --- */
 .vazamento-header {
  background: linear-gradient(to right, #b71c1c, #d32f2f);
- padding: 10px 0;
+ padding: 8px 0;
  text-align: center;
  font-weight: 900;
  font-size: 1.1em;
@@ -65,28 +65,30 @@ body {
  z-index: 50;
 }
 
-/* --- ALERTA AMARELO (AJUSTADO) --- */
+/* --- ALERTA CHAMATIVO (TEXTO NOVO) --- */
 .alert-box {
- background-color: #1a1a1a;
+ background-color: #2a0e0e; /* Fundo avermelhado sutil */
  border-left: 4px solid #ffd700; /* Linha amarela forte */
  padding: 12px 15px;
- margin: 0 15px 10px 15px; /* Margem reduzida para não criar buraco */
+ margin: 0 15px 8px 15px; /* Margem bem pequena */
  text-align: left;
- font-size: 0.85em;
- line-height: 1.4;
- color: #e0e0e0;
+ font-size: 0.9em;
+ line-height: 1.35;
+ color: #fff;
  border-radius: 0 6px 6px 0;
  width: calc(100% - 30px);
- box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+ box-shadow: 0 2px 8px rgba(0,0,0,0.6);
  position: relative;
+ font-weight: 500;
 }
 
 .alert-icon {
  color: #ffd700; /* Ícone Amarelo */
  font-weight: bold;
  margin-right: 8px;
- font-size: 1.1em;
+ font-size: 1.2em;
  vertical-align: middle;
+ display: inline-block;
 }
 
 /* --- CONTAINER PRINCIPAL --- */
@@ -96,28 +98,28 @@ body {
  flex-direction: column;
  align-items: center;
  justify-content: flex-start; /* Alinha ao topo */
- padding: 0 15px 20px 15px;
+ padding: 0 10px 15px 10px; /* Padding lateral reduzido */
  width: 100%;
  max-width: 500px;
  margin: 0 auto;
  position: relative;
 }
 
-/* --- IMAGEM CENTRAL (TAMANHO MAIOR) --- */
+/* --- IMAGEM CENTRAL (TAMANHO MÁXIMO) --- */
 .img-container {
  position: relative;
  width: 100%;
- margin: 0 0 15px 0; 
+ margin: 0 0 12px 0; 
  border-radius: 4px;
  overflow: hidden;
  aspect-ratio: 16/9; 
- max-height: 65vh; /* AUMENTEI PARA 65% DA TELA */
+ max-height: 70vh; /* AUMENTEI PARA 70% DA TELA */
  display: flex;
  align-items: center;
  justify-content: center;
  background-color: #111;
  border: none; 
- box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+ box-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
 
 .final-img {
@@ -277,7 +279,7 @@ body {
 /* --- MEDIA QUERIES PARA TELA MUITO PEQUENA --- */
 @media (max-height: 600px) {
  .banner-topo { max-width: 120px; }
- .img-container { max-height: 45vh; margin: 5px 0; }
+ .img-container { max-height: 50vh; margin: 5px 0; }
  .alert-box { padding: 8px 10px; margin: 0 10px 5px 10px; }
  .btn-access { padding: 12px; font-size: 1em; }
  .vazamento-header { padding: 6px 0; font-size: 0.9em; }
@@ -297,12 +299,12 @@ body {
 </div>
 
 <div class="container">
- <!-- Alerta com ícone amarelo -->
+ <!-- Alerta Chamativo -->
  <div class="alert-box">
  <span class="alert-icon">
  <svg class="icon-svg text-yellow" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
  </span>
- Atenção: A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos, confirmamos sua localização exata antes de liberar os dados.
+ Atenção: A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Sabe aquele vizinho estranho que te cumprimenta? Corre para saber se ele está nessa lista. Contém foto e nome real. Deixe seu comentário se conhece ele!
  </div>
 
  <!-- Imagem Central (MAIOR) -->
