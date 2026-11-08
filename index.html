@@ -24,7 +24,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- BANNER SUPERIOR --- */
+/* --- BANNER SUPERIOR CORRETAMENTE AJUSTADO --- */
 .header {
     width: 100%;
     background-color: #000;
@@ -48,7 +48,7 @@ body {
     padding: 0;
 }
 
-/* --- TEXTO VAZAMENTO EXCLUSIVO --- */
+/* --- TEXTO VAZAMENTO COM ÍCONE AMARELO --- */
 .vazamento-header {
     background: linear-gradient(to bottom, #1a1a1a, #000);
     padding: 12px 0;
@@ -57,12 +57,12 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: #ff4444;
+    color: #ffd700; /* Amarelo Chamativo */
     font-weight: 900;
     font-size: 1.2em;
     letter-spacing: 2px;
     text-transform: uppercase;
-    box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 /* --- ESTRUTURA PRINCIPAL --- */
@@ -256,12 +256,13 @@ body {
 <body oncontextmenu="return false;">
 
 <div class="header">
-    <!-- Link direto da imagem corrigida -->
-    <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Monte City News" class="banner-topo">
+    <!-- Link corrigido conforme solicitado -->
+    <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/main/Banner%20Institucional%20Monte%20Carmelo%20e%20Parceiros.png" alt="Monte City News" class="banner-topo">
 </div>
 
 <div class="vazamento-header">
-    <svg class="icon-svg text-red" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    <!-- Ícone Amarelo Chamativo -->
+    <svg class="icon-svg text-yellow" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
     VAZAMENTO EXCLUSIVO
 </div>
 
