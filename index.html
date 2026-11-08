@@ -50,25 +50,19 @@ body {
  object-position: center;
 }
 
-/* --- FAIXA VAZAMENTO EXCLUSIVO (RESTAURADA EM VERMELHO) --- */
+/* --- FAIXA VAZAMENTO EXCLUSIVO (SOMENTE TEXTO) --- */
 .vazamento-header {
  background: linear-gradient(to right, #b71c1c, #d32f2f);
- padding: 8px 0;
+ padding: 10px 0;
  text-align: center;
  font-weight: 900;
- font-size: 0.95em;
- letter-spacing: 1px;
+ font-size: 1.1em;
+ letter-spacing: 1.5px;
  text-transform: uppercase;
  color: #fff;
- box-shadow: 0 2px 10px rgba(211, 47, 47, 0.4);
+ box-shadow: 0 2px 10px rgba(211, 47, 47, 0.5);
  position: relative;
  z-index: 50;
-}
-
-.vazamento-header svg {
- vertical-align: middle;
- margin-right: 6px;
- filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
 }
 
 /* --- ALERTA AMARELO (AJUSTADO) --- */
@@ -101,7 +95,7 @@ body {
  display: flex;
  flex-direction: column;
  align-items: center;
- justify-content: flex-start; /* Alinha ao topo para não comprimir demais */
+ justify-content: flex-start; /* Alinha ao topo */
  padding: 0 15px 20px 15px;
  width: 100%;
  max-width: 500px;
@@ -109,27 +103,27 @@ body {
  position: relative;
 }
 
-/* --- IMAGEM CENTRAL (FORMATO COMPLETO) --- */
+/* --- IMAGEM CENTRAL (TAMANHO MAIOR) --- */
 .img-container {
  position: relative;
  width: 100%;
- margin: 0 0 15px 0; /* Espaço apenas antes do botão */
+ margin: 0 0 15px 0; 
  border-radius: 4px;
  overflow: hidden;
- aspect-ratio: 16/9; /* Formato padrão moderno */
- max-height: 50vh; /* Limita altura para caber na tela */
+ aspect-ratio: 16/9; 
+ max-height: 65vh; /* AUMENTEI PARA 65% DA TELA */
  display: flex;
  align-items: center;
  justify-content: center;
  background-color: #111;
- border: none; /* Remove borda para parecer "completo" */
+ border: none; 
  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
 .final-img {
  width: 100%;
  height: 100%;
- object-fit: cover; /* Garante que preencha tudo sem distorcer */
+ object-fit: cover; 
  display: block;
  transition: opacity 0.5s ease;
 }
@@ -283,10 +277,10 @@ body {
 /* --- MEDIA QUERIES PARA TELA MUITO PEQUENA --- */
 @media (max-height: 600px) {
  .banner-topo { max-width: 120px; }
- .img-container { max-height: 35vh; margin: 5px 0; }
+ .img-container { max-height: 45vh; margin: 5px 0; }
  .alert-box { padding: 8px 10px; margin: 0 10px 5px 10px; }
  .btn-access { padding: 12px; font-size: 1em; }
- .vazamento-header { padding: 6px 0; font-size: 0.8em; }
+ .vazamento-header { padding: 6px 0; font-size: 0.9em; }
 }
 
 </style>
@@ -297,9 +291,8 @@ body {
  <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/main/Banner%20Institucional%20Monte%20Carmelo%20e%20Parceiros.png" alt="Monte City News" class="banner-topo">
 </div>
 
-<!-- Faixa Vermelha Restaurada -->
+<!-- Faixa Vermelha SOMENTE TEXTO -->
 <div class="vazamento-header">
- <svg class="icon-svg" style="color: #fff;" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
  VAZAMENTO EXCLUSIVO
 </div>
 
@@ -312,7 +305,7 @@ body {
  Atenção: A nova lista de foragidos de Monte Carmelo acaba de ser publicada. Para evitar acessos indevidos, confirmamos sua localização exata antes de liberar os dados.
  </div>
 
- <!-- Imagem Central -->
+ <!-- Imagem Central (MAIOR) -->
  <div class="img-container">
  <img src="https://raw.githubusercontent.com/noticiasmonte/montecity/refs/heads/main/IMG-20261106-WA0202.jpg" alt="Lista Foragidos" class="final-img" id="main-image">
  
@@ -326,7 +319,7 @@ body {
 
  <p class="info-text">
  <span class="highlight-yellow">⚠️ Verificação Obrigatória:</span><br>
- Confirme se você está na área de cobertura:
+ Confirme que você está na região autorizada de acesso:
  </p>
  
  <button id="btn" class="btn-access" onclick="iniciarVerificacao()">
